@@ -1,5 +1,7 @@
 package com.stockin.controller;
 
+import java.io.File;
+
 import com.stockin.dao.ProductDAO;
 import com.stockin.model.Product;
 import com.stockin.util.AlertUtil;
@@ -16,8 +18,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
-
-import java.io.File;
 
 public class ProductController {
 

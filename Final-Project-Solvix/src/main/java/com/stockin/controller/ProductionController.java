@@ -7,6 +7,7 @@ import com.stockin.dao.NotificationDAO;
 import com.stockin.dao.ProductDAO;
 import com.stockin.dao.ProductionDAO;
 import com.stockin.model.Material;
+import com.stockin.model.MaterialUsageItem;
 import com.stockin.model.Product;
 import com.stockin.model.Production;
 import com.stockin.util.AlertUtil;
@@ -51,6 +52,15 @@ public class ProductionController {
     private TextField txtMaterialQtyUsed;
 
     @FXML
+    private TableView<MaterialUsageItem> tableMaterialUsed;
+
+    @FXML
+    private TableColumn<MaterialUsageItem, String> colMaterialUsedName;
+
+    @FXML
+    private TableColumn<MaterialUsageItem, String> colMaterialUsedQty;
+
+    @FXML
     private TableView<Production> tableProduction;
 
     @FXML
@@ -86,6 +96,7 @@ public class ProductionController {
     private final NotificationDAO notificationDAO = new NotificationDAO();
 
     private final ObservableList<Production> productionList = FXCollections.observableArrayList();
+    private final ObservableList<MaterialUsageItem> materialUsageList = FXCollections.observableArrayList();
 
     private Production selectedProduction;
 
@@ -103,6 +114,10 @@ public class ProductionController {
         colNote.setCellValueFactory(new PropertyValueFactory<>("note"));
 
         tableProduction.setItems(productionList);
+
+        colMaterialUsedName.setCellValueFactory(new PropertyValueFactory<>("materialName"));
+        colMaterialUsedQty.setCellValueFactory(new PropertyValueFactory<>("quantityDisplay"));
+        tableMaterialUsed.setItems(materialUsageList);
 
         cmbProduct.setItems(FXCollections.observableArrayList(productDAO.getAllProducts()));
         cmbMaterialUsed.setItems(FXCollections.observableArrayList(materialDAO.getAllMaterials()));
@@ -156,6 +171,7 @@ public class ProductionController {
         // Field bahan digunakan hanya berlaku saat input baru
         cmbMaterialUsed.setValue(null);
         txtMaterialQtyUsed.clear();
+        materialUsageList.clear();
 
     }
 
@@ -187,7 +203,6 @@ public class ProductionController {
                 return;
             }
 
-            // Kurangi stok material yang dipakai (sesuai catatan pada class diagram)
             applyMaterialUsage();
 
             loadTable();
@@ -282,15 +297,23 @@ public class ProductionController {
         txtNote.clear();
         cmbMaterialUsed.setValue(null);
         txtMaterialQtyUsed.clear();
+        materialUsageList.clear();
 
     }
 
-    private void applyMaterialUsage() {
+    @FXML
+    private void addMaterialUsage() {
 
         Material material = cmbMaterialUsed.getValue();
         String qtyText = txtMaterialQtyUsed.getText().trim();
 
-        if (material == null || qtyText.isEmpty()) {
+        if (material == null) {
+            AlertUtil.warning("Data belum lengkap", "Pilih material terlebih dahulu.");
+            return;
+        }
+
+        if (qtyText.isEmpty()) {
+            AlertUtil.warning("Data belum lengkap", "Isi jumlah bahan yang dipakai.");
             return;
         }
 
@@ -299,30 +322,88 @@ public class ProductionController {
             int qtyUsed = Integer.parseInt(qtyText);
 
             if (qtyUsed <= 0) {
+                AlertUtil.warning("Data tidak valid", "Jumlah bahan dipakai harus lebih dari 0.");
                 return;
             }
 
-            materialDAO.updateStock(material.getMaterialId(), -qtyUsed);
+            for (int i = 0; i < materialUsageList.size(); i++) {
 
-            Material refreshed = materialDAO.getMaterialById(material.getMaterialId());
+                MaterialUsageItem existing = materialUsageList.get(i);
 
-            if (refreshed != null) {
+                if (existing.getMaterialId() == material.getMaterialId()) {
 
-                cmbMaterialUsed.setItems(FXCollections.observableArrayList(materialDAO.getAllMaterials()));
+                    MaterialUsageItem merged = new MaterialUsageItem(
+                            existing.getMaterialId(),
+                            existing.getMaterialName(),
+                            existing.getUnit(),
+                            existing.getQuantityUsed() + qtyUsed);
 
-                if (MaterialDAO.isLowStock(refreshed)) {
-                    notificationDAO.createLowStockNotificationIfNeeded(
-                            refreshed.getMaterialId(),
-                            refreshed.getMaterialName(),
-                            refreshed.getStock(),
-                            refreshed.getMinimumStock());
+                    materialUsageList.set(i, merged);
+
+                    cmbMaterialUsed.setValue(null);
+                    txtMaterialQtyUsed.clear();
+                    return;
+
                 }
 
             }
 
+            materialUsageList.add(new MaterialUsageItem(
+                    material.getMaterialId(),
+                    material.getMaterialName(),
+                    material.getUnit(),
+                    qtyUsed));
+
+            cmbMaterialUsed.setValue(null);
+            txtMaterialQtyUsed.clear();
+
         } catch (NumberFormatException e) {
             AlertUtil.warning("Data tidak valid", "Jumlah bahan dipakai harus berupa angka.");
         }
+
+    }
+
+    /**
+     * Menghapus baris material yang sedang dipilih pada tabel daftar bahan.
+     */
+    @FXML
+    private void removeMaterialUsage() {
+
+        MaterialUsageItem selected = tableMaterialUsed.getSelectionModel().getSelectedItem();
+
+        if (selected == null) {
+            AlertUtil.warning("Belum ada pilihan", "Pilih baris material pada daftar bahan terlebih dahulu.");
+            return;
+        }
+
+        materialUsageList.remove(selected);
+
+    }
+
+    private void applyMaterialUsage() {
+
+        if (materialUsageList.isEmpty()) {
+            return;
+        }
+
+        for (MaterialUsageItem item : materialUsageList) {
+
+            materialDAO.updateStock(item.getMaterialId(), -item.getQuantityUsed());
+
+            Material refreshed = materialDAO.getMaterialById(item.getMaterialId());
+
+            if (refreshed != null && MaterialDAO.isLowStock(refreshed)) {
+                notificationDAO.createLowStockNotificationIfNeeded(
+                        refreshed.getMaterialId(),
+                        refreshed.getMaterialName(),
+                        refreshed.getStock(),
+                        refreshed.getMinimumStock());
+            }
+
+        }
+
+        cmbMaterialUsed.setItems(FXCollections.observableArrayList(materialDAO.getAllMaterials()));
+        materialUsageList.clear();
 
     }
 

@@ -34,4 +34,5 @@
 12. Financial Report: Developing a financial report page that presents data in the form of a “bar chart” so that users can view comparisons of revenue, expenses, and profits more easily and in a more informative way.
 
 ## How To Run
+- cd C:\xamp\VScode\final-project-solvix\Final-Project-Solvix
 - mvn javafx:run

@@ -44,7 +44,7 @@
 
             <Separator/>
 
-            <Label text="Bahan Digunakan (opsional, stok akan dikurangi otomatis saat Tambah)"
+            <Label text="Bahan Digunakan (opsional, bisa pilih lebih dari satu material, stok dikurangi otomatis saat Tambah)"
                    style="-fx-font-weight:bold;"/>
 
             <GridPane hgap="10" vgap="10">
@@ -55,7 +55,25 @@
                 <Label text="Jumlah Dipakai" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
                 <TextField fx:id="txtMaterialQtyUsed" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
+                <Button text="+ Tambah Bahan" onAction="#addMaterialUsage"
+                        GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+
             </GridPane>
+
+            <TableView fx:id="tableMaterialUsed" prefHeight="110">
+
+                <columns>
+                    <TableColumn fx:id="colMaterialUsedName" text="Material" prefWidth="220"/>
+                    <TableColumn fx:id="colMaterialUsedQty" text="Jumlah Dipakai" prefWidth="150"/>
+                </columns>
+
+            </TableView>
+
+            <HBox spacing="10">
+
+                <Button text="Hapus Bahan Terpilih" onAction="#removeMaterialUsage"/>
+
+            </HBox>
 
             <HBox spacing="10">
 
