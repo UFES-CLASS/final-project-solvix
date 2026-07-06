@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.BarChart?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<ScrollPane fitToWidth="true"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.stockin.controller.ReportController">
+
+    <content>
+
+        <VBox spacing="20" style="-fx-padding:20;">
+
+            <Label text="Financial Report"
+                   style="-fx-font-size:22px;
+                          -fx-font-weight:bold;"/>
+
+            <Label text="Laporan dihitung langsung dari data Production (tidak memiliki tabel tersendiri)."
+                   style="-fx-text-fill:#6B7280;"/>
+
+            <!-- FILTER PERIODE -->
+            <HBox spacing="10" alignment="CENTER_LEFT">
+
+                <Label text="Dari"/>
+                <DatePicker fx:id="dateFrom"/>
+
+                <Label text="Sampai"/>
+                <DatePicker fx:id="dateTo"/>
+
+                <Button text="Terapkan" onAction="#applyFilter"/>
+                <Button text="Tampilkan Semua" onAction="#resetFilter"/>
+
+            </HBox>
+
+            <!-- SUMMARY CARDS -->
+            <HBox spacing="15">
+
+                <VBox spacing="5" prefWidth="220"
+                      style="-fx-background-color:white; -fx-padding:15;
+                             -fx-background-radius:8; -fx-border-color:#E5E7EB; -fx-border-radius:8;">
+                    <Label text="Total Produksi" style="-fx-text-fill:#6B7280;"/>
+                    <Label fx:id="lblTotalProduced" text="0"
+                           style="-fx-font-size:26; -fx-font-weight:bold; -fx-text-fill:#2563EB;"/>
+                </VBox>
+
+                <VBox spacing="5" prefWidth="220"
+                      style="-fx-background-color:white; -fx-padding:15;
+                             -fx-background-radius:8; -fx-border-color:#E5E7EB; -fx-border-radius:8;">
+                    <Label text="Total Terjual" style="-fx-text-fill:#6B7280;"/>
+                    <Label fx:id="lblTotalSold" text="0"
+                           style="-fx-font-size:26; -fx-font-weight:bold; -fx-text-fill:#2563EB;"/>
+                </VBox>
+
+                <VBox spacing="5" prefWidth="220"
+                      style="-fx-background-color:white; -fx-padding:15;
+                             -fx-background-radius:8; -fx-border-color:#E5E7EB; -fx-border-radius:8;">
+                    <Label text="Pendapatan" style="-fx-text-fill:#6B7280;"/>
+                    <Label fx:id="lblRevenue" text="Rp 0"
+                           style="-fx-font-size:26; -fx-font-weight:bold; -fx-text-fill:#16A34A;"/>
+                </VBox>
+
+            </HBox>
+
+            <!-- GRAFIK -->
+            <HBox spacing="15">
+
+                <BarChart fx:id="chartByProduct" prefWidth="480" prefHeight="300" title="Pendapatan per Produk">
+                    <xAxis>
+                        <CategoryAxis label="Produk"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Pendapatan (Rp)"/>
+                    </yAxis>
+                </BarChart>
+
+                <LineChart fx:id="chartByDate" prefWidth="480" prefHeight="300" title="Tren Pendapatan per Tanggal">
+                    <xAxis>
+                        <CategoryAxis label="Tanggal"/>
+                    </xAxis>
+                    <yAxis>
+                        <NumberAxis label="Pendapatan (Rp)"/>
+                    </yAxis>
+                </LineChart>
+
+            </HBox>
+
+            <!-- TABEL RINCIAN PER PRODUK -->
+            <Label text="Rincian per Produk" style="-fx-font-size:16; -fx-font-weight:bold;"/>
+
+            <TableView fx:id="tableSummary" prefHeight="220">
+
+                <columns>
+
+                    <TableColumn fx:id="colProduct" text="Produk" prefWidth="220"/>
+                    <TableColumn fx:id="colProduced" text="Total Produksi" prefWidth="150"/>
+                    <TableColumn fx:id="colSold" text="Total Terjual" prefWidth="150"/>
+                    <TableColumn fx:id="colRevenue" text="Pendapatan" prefWidth="180"/>
+
+                </columns>
+
+            </TableView>
+
+        </VBox>
+
+    </content>
+
+</ScrollPane>

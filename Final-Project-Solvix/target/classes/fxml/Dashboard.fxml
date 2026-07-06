@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.stockin.controller.DashboardController"
+            stylesheets="@../css/style.css">
+
+    <!-- SIDEBAR -->
+    <left>
+
+        <VBox spacing="8" prefWidth="230" styleClass="sidebar">
+
+            <padding>
+                <Insets top="30" right="15" bottom="30" left="15"/>
+            </padding>
+
+            <Label text="STOCKIN" styleClass="logo-title"/>
+            <Label text="Inventory Management" styleClass="logo-subtitle"/>
+
+            <Region prefHeight="30"/>
+
+            <Button fx:id="btnDashboard" text="Dashboard" onAction="#openDashboard" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
+            <Button fx:id="btnMaterial" text="Material" onAction="#openMaterial" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
+            <Button fx:id="btnIncoming" text="Incoming Material" onAction="#openIncoming" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
+            <Button fx:id="btnProduct" text="Product" onAction="#openProduct" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
+            <Button fx:id="btnProduction" text="Production" onAction="#openProduction" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
+            <Button fx:id="btnNotification" text="Notification" onAction="#openNotification" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
+            <Button fx:id="btnReport" text="Financial Report" onAction="#openReport" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
+
+        </VBox>
+
+    </left>
+
+    <!-- TOP BAR -->
+    <top>
+
+        <HBox spacing="15" alignment="CENTER_LEFT" styleClass="topbar">
+
+            <padding>
+                <Insets top="16" right="25" bottom="16" left="25"/>
+            </padding>
+
+            <Pane HBox.hgrow="ALWAYS"/>
+
+            <Label fx:id="lblUser" text="Owner" styleClass="username"/>
+
+            <Button text="Logout" onAction="#logout" styleClass="btn-primary"/>
+
+        </HBox>
+
+    </top>
+
+    <!-- CONTENT: hanya satu halaman yang tampil pada satu waktu -->
+    <center>
+
+        <StackPane fx:id="contentArea"
+                   style="-fx-padding:20;"/>
+
+    </center>
+
+</BorderPane>

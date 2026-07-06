@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.stockin.controller.MaterialController">
+
+    <top>
+
+        <VBox spacing="10">
+
+            <Label text="Material Management"
+                   style="-fx-font-size:22px;
+                          -fx-font-weight:bold;"/>
+
+            <GridPane hgap="10" vgap="10">
+
+                <Label text="Nama Material"/>
+                <TextField fx:id="txtMaterialName"
+                           GridPane.columnIndex="1"/>
+
+                <Label text="Kategori"
+                       GridPane.rowIndex="1"/>
+
+                <TextField fx:id="txtCategory"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="1"/>
+
+                <Label text="Unit"
+                       GridPane.rowIndex="2"/>
+
+                <TextField fx:id="txtUnit"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="2"/>
+
+                <Label text="Stock"
+                       GridPane.rowIndex="3"/>
+
+                <TextField fx:id="txtStock"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="3"/>
+
+                <Label text="Minimum Stock"
+                       GridPane.rowIndex="4"/>
+
+                <TextField fx:id="txtMinimumStock"
+                           GridPane.columnIndex="1"
+                           GridPane.rowIndex="4"/>
+
+            </GridPane>
+
+            <HBox spacing="10">
+
+                <Button text="Tambah"
+                        onAction="#saveMaterial"/>
+
+                <Button text="Ubah"
+                        onAction="#updateMaterial"/>
+
+                <Button text="Hapus"
+                        onAction="#deleteMaterial"/>
+
+                <Button text="Reset"
+                        onAction="#clearForm"/>
+
+            </HBox>
+
+        </VBox>
+
+    </top>
+
+    <center>
+
+        <TableView fx:id="tableMaterial">
+
+            <columns>
+
+                <TableColumn fx:id="colId"
+                             text="ID"
+                             prefWidth="60"/>
+
+                <TableColumn fx:id="colName"
+                             text="Material"
+                             prefWidth="180"/>
+
+                <TableColumn fx:id="colCategory"
+                             text="Kategori"
+                             prefWidth="150"/>
+
+                <TableColumn fx:id="colUnit"
+                             text="Unit"
+                             prefWidth="100"/>
+
+                <TableColumn fx:id="colStock"
+                             text="Stock"
+                             prefWidth="100"/>
+
+                <TableColumn fx:id="colMinimum"
+                             text="Minimum"
+                             prefWidth="100"/>
+
+            </columns>
+
+        </TableView>
+
+    </center>
+
+    <padding>
+        <Insets top="20" right="20" left="20" bottom="20"/>
+    </padding>
+
+</BorderPane>
