@@ -22,6 +22,7 @@ com\stockin\dao\ProductDAO.class
 com\stockin\controller\LoginController.class
 com\stockin\controller\NotificationController$1.class
 com\stockin\controller\DashboardController.class
+com\stockin\model\MaterialUsageItem.class
 com\stockin\controller\ReportController$ProductSummary.class
 com\stockin\dao\ProductionDAO.class
 com\stockin\Main.class

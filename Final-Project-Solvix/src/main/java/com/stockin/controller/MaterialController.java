@@ -96,7 +96,7 @@ public class MaterialController {
         });
 
         if (Session.isStaff()) {
-            txtMinimumStock.setPromptText("Minimum stock diatur oleh Owner");
+            txtMinimumStock.setPromptText("Minimum stock are not editable for staff.");
         }
 
         loadTable();
@@ -125,7 +125,7 @@ public class MaterialController {
         String name = txtMaterialName.getText().trim();
 
         if (name.isEmpty()) {
-            AlertUtil.warning("Data belum lengkap", "Nama material wajib diisi.");
+            AlertUtil.warning("Data is incomplete", "Material name is required.");
             return;
         }
 
@@ -144,13 +144,13 @@ public class MaterialController {
                 checkLowStock(material);
                 loadTable();
                 clearForm();
-                AlertUtil.info("Berhasil", "Material berhasil ditambahkan.");
+                AlertUtil.info("Success", "Material saved successfully.");
             } else {
-                AlertUtil.error("Gagal", "Material gagal ditambahkan.");
+                AlertUtil.error("Failed", "Failed to save material.");
             }
 
         } catch (NumberFormatException e) {
-            AlertUtil.warning("Data tidak valid", "Stock dan Minimum Stock harus berupa angka.");
+            AlertUtil.warning("Data is invalid", "Stock and Minimum Stock must be valid numbers.");
         }
 
     }
@@ -159,7 +159,7 @@ public class MaterialController {
     private void updateMaterial() {
 
         if (selectedMaterial == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih material pada tabel terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a material from the table first.");
             return;
         }
 
@@ -177,13 +177,13 @@ public class MaterialController {
                 checkLowStock(selectedMaterial);
                 loadTable();
                 clearForm();
-                AlertUtil.info("Berhasil", "Material berhasil diperbarui.");
+                AlertUtil.info("Success", "Material updated successfully.");
             } else {
-                AlertUtil.error("Gagal", "Material gagal diperbarui.");
+                AlertUtil.error("Failed", "Failed to update material.");
             }
 
         } catch (NumberFormatException e) {
-            AlertUtil.warning("Data tidak valid", "Stock dan Minimum Stock harus berupa angka.");
+            AlertUtil.warning("Data is invalid", "Stock and Minimum Stock must be valid numbers.");
         }
 
     }
@@ -192,12 +192,12 @@ public class MaterialController {
     private void deleteMaterial() {
 
         if (selectedMaterial == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih material pada tabel terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a material from the table first.");
             return;
         }
 
-        boolean confirm = AlertUtil.confirm("Konfirmasi Hapus",
-                "Hapus material \"" + selectedMaterial.getMaterialName() + "\"?");
+        boolean confirm = AlertUtil.confirm("Confirm Delete",
+                "Delete material \"" + selectedMaterial.getMaterialName() + "\"?");
 
         if (!confirm) {
             return;
@@ -208,9 +208,9 @@ public class MaterialController {
         if (success) {
             loadTable();
             clearForm();
-            AlertUtil.info("Berhasil", "Material berhasil dihapus.");
+            AlertUtil.info("Success", "Material deleted successfully.");
         } else {
-            AlertUtil.error("Gagal", "Material gagal dihapus (mungkin masih dipakai di data lain).");
+            AlertUtil.error("Failed", "Failed to delete material (it might be in use in other data).");
         }
 
     }

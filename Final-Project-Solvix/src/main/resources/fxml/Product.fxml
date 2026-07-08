@@ -29,17 +29,17 @@
 
                 <GridPane hgap="10" vgap="10" HBox.hgrow="ALWAYS">
 
-                    <Label text="Nama Produk" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                    <Label text="Product Name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                     <TextField fx:id="txtProductName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                    <Label text="Harga Jual" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                    <Label text="Selling Price" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
                     <TextField fx:id="txtSellingPrice" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
-                    <Label text="Deskripsi" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                    <Label text="Description" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                     <TextField fx:id="txtDescription" GridPane.rowIndex="1" GridPane.columnIndex="1"
                                GridPane.columnSpan="3"/>
 
-                    <Label text="Status Aktif" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                    <Label text="Active Status" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                     <CheckBox fx:id="chkActive" selected="true" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
                 </GridPane>
@@ -48,9 +48,9 @@
 
             <HBox spacing="10">
 
-                <Button text="Tambah" onAction="#saveProduct"/>
-                <Button text="Ubah" onAction="#updateProduct"/>
-                <Button text="Hapus" onAction="#deleteProduct"/>
+                <Button text="Add" onAction="#saveProduct"/>
+                <Button text="Update" onAction="#updateProduct"/>
+                <Button text="Delete" onAction="#deleteProduct"/>
                 <Button text="Reset" onAction="#clearForm"/>
 
             </HBox>
@@ -66,10 +66,10 @@
             <columns>
 
                 <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
-                <TableColumn fx:id="colName" text="Nama Produk" prefWidth="200"/>
-                <TableColumn fx:id="colDescription" text="Deskripsi" prefWidth="220"/>
-                <TableColumn fx:id="colPrice" text="Harga Jual" prefWidth="120"/>
-                <TableColumn fx:id="colActive" text="Aktif" prefWidth="80"/>
+                <TableColumn fx:id="colName" text="Product Name" prefWidth="200"/>
+                <TableColumn fx:id="colDescription" text="Description" prefWidth="220"/>
+                <TableColumn fx:id="colPrice" text="Selling Price" prefWidth="120"/>
+                <TableColumn fx:id="colActive" text="Active" prefWidth="80"/>
 
             </columns>
 

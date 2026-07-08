@@ -74,7 +74,7 @@ public class ProductController {
             @Override
             protected void updateItem(Boolean value, boolean empty) {
                 super.updateItem(value, empty);
-                setText(empty || value == null ? null : (value ? "Aktif" : "Nonaktif"));
+                setText(empty || value == null ? null : (value ? "Active" : "Inactive"));
             }
         });
 
@@ -113,7 +113,7 @@ public class ProductController {
         FileChooser chooser = new FileChooser();
         chooser.setTitle("Pilih Gambar Produk");
         chooser.getExtensionFilters().add(
-                new FileChooser.ExtensionFilter("Gambar", "*.png", "*.jpg", "*.jpeg"));
+                new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
 
         File file = chooser.showOpenDialog(imgPreview.getScene().getWindow());
 
@@ -146,7 +146,7 @@ public class ProductController {
         String name = txtProductName.getText().trim();
 
         if (name.isEmpty()) {
-            AlertUtil.warning("Data belum lengkap", "Nama produk wajib diisi.");
+            AlertUtil.warning("Data is incomplete", "Product name is required.");
             return;
         }
 
@@ -164,13 +164,13 @@ public class ProductController {
             if (success) {
                 loadTable();
                 clearForm();
-                AlertUtil.info("Berhasil", "Produk berhasil ditambahkan.");
+                AlertUtil.info("Success", "Product added successfully.");
             } else {
-                AlertUtil.error("Gagal", "Produk gagal ditambahkan.");
+                AlertUtil.error("Failed", "Failed to add product.");
             }
 
         } catch (NumberFormatException e) {
-            AlertUtil.warning("Data tidak valid", "Harga jual harus berupa angka.");
+            AlertUtil.warning("Data is invalid", "Selling price must be a valid number.");
         }
 
     }
@@ -179,7 +179,7 @@ public class ProductController {
     private void updateProduct() {
 
         if (selectedProduct == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih produk pada tabel terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a product from the table first.");
             return;
         }
 
@@ -196,13 +196,13 @@ public class ProductController {
             if (success) {
                 loadTable();
                 clearForm();
-                AlertUtil.info("Berhasil", "Produk berhasil diperbarui.");
+                AlertUtil.info("Success", "Product updated successfully.");
             } else {
-                AlertUtil.error("Gagal", "Produk gagal diperbarui.");
+                AlertUtil.error("Failed", "Failed to update product.");
             }
 
         } catch (NumberFormatException e) {
-            AlertUtil.warning("Data tidak valid", "Harga jual harus berupa angka.");
+            AlertUtil.warning("Data is invalid", "Selling price must be a valid number.");
         }
 
     }
@@ -211,12 +211,12 @@ public class ProductController {
     private void deleteProduct() {
 
         if (selectedProduct == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih produk pada tabel terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a product from the table first.");
             return;
         }
 
-        boolean confirm = AlertUtil.confirm("Konfirmasi Hapus",
-                "Hapus produk \"" + selectedProduct.getProductName() + "\"?");
+        boolean confirm = AlertUtil.confirm("Confirm Delete",
+                "Delete product \"" + selectedProduct.getProductName() + "\"?");
 
         if (!confirm) {
             return;
@@ -227,9 +227,9 @@ public class ProductController {
         if (success) {
             loadTable();
             clearForm();
-            AlertUtil.info("Berhasil", "Produk berhasil dihapus.");
+            AlertUtil.info("Success", "Product deleted successfully.");
         } else {
-            AlertUtil.error("Gagal", "Produk gagal dihapus (mungkin masih dipakai di data produksi).");
+            AlertUtil.error("Failed", "Failed to delete product (it might be in use in other data).");
         }
 
     }

@@ -18,25 +18,25 @@
 
             <GridPane hgap="10" vgap="10">
 
-                <Label text="Produk" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <Label text="Product" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                 <ComboBox fx:id="cmbProduct" prefWidth="200" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                <Label text="Tanggal Produksi" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <Label text="Production Date" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
                 <DatePicker fx:id="dateProduction" prefWidth="150" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
-                <Label text="Tanggal Kedaluwarsa" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <Label text="Expiration Date" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
                 <DatePicker fx:id="dateExpired" prefWidth="150" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                <Label text="Harga Jual" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
+                <Label text="Selling Price" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
                 <TextField fx:id="txtSellingPrice" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
 
-                <Label text="Jumlah Diproduksi" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <Label text="Quantity Produced" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtQuantityProduced" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-                <Label text="Jumlah Terjual" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
+                <Label text="Quantity Sold" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
                 <TextField fx:id="txtQuantitySold" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
 
-                <Label text="Catatan" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <Label text="Note" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
                 <TextField fx:id="txtNote" GridPane.rowIndex="3" GridPane.columnIndex="1"
                            GridPane.columnSpan="3"/>
 
@@ -44,7 +44,7 @@
 
             <Separator/>
 
-            <Label text="Bahan Digunakan (opsional, bisa pilih lebih dari satu material, stok dikurangi otomatis saat Tambah)"
+            <Label text="Materials Used (optional, can select more than one material, stock will be reduced automatically when Added)"
                    style="-fx-font-weight:bold;"/>
 
             <GridPane hgap="10" vgap="10">
@@ -52,10 +52,10 @@
                 <Label text="Material" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
                 <ComboBox fx:id="cmbMaterialUsed" prefWidth="200" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                <Label text="Jumlah Dipakai" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
+                <Label text="Quantity Used" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
                 <TextField fx:id="txtMaterialQtyUsed" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
 
-                <Button text="+ Tambah Bahan" onAction="#addMaterialUsage"
+                <Button text="+ Add Material" onAction="#addMaterialUsage"
                         GridPane.rowIndex="0" GridPane.columnIndex="4"/>
 
             </GridPane>
@@ -64,22 +64,22 @@
 
                 <columns>
                     <TableColumn fx:id="colMaterialUsedName" text="Material" prefWidth="220"/>
-                    <TableColumn fx:id="colMaterialUsedQty" text="Jumlah Dipakai" prefWidth="150"/>
+                    <TableColumn fx:id="colMaterialUsedQty" text="Quantity Used" prefWidth="150"/>
                 </columns>
 
             </TableView>
 
             <HBox spacing="10">
 
-                <Button text="Hapus Bahan Terpilih" onAction="#removeMaterialUsage"/>
+                <Button text="Remove Selected Material" onAction="#removeMaterialUsage"/>
 
             </HBox>
 
             <HBox spacing="10">
 
-                <Button text="Tambah" onAction="#saveProduction"/>
-                <Button text="Ubah" onAction="#updateProduction"/>
-                <Button text="Hapus" onAction="#deleteProduction"/>
+                <Button text="Add" onAction="#saveProduction"/>
+                <Button text="Update" onAction="#updateProduction"/>
+                <Button text="Delete" onAction="#deleteProduction"/>
                 <Button text="Reset" onAction="#clearForm"/>
 
             </HBox>
@@ -95,14 +95,14 @@
             <columns>
 
                 <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-                <TableColumn fx:id="colProduct" text="Produk" prefWidth="140"/>
-                <TableColumn fx:id="colProdDate" text="Tgl Produksi" prefWidth="100"/>
-                <TableColumn fx:id="colExpDate" text="Tgl Kedaluwarsa" prefWidth="110"/>
-                <TableColumn fx:id="colProduced" text="Diproduksi" prefWidth="90"/>
-                <TableColumn fx:id="colSold" text="Terjual" prefWidth="80"/>
-                <TableColumn fx:id="colPrice" text="Harga Jual" prefWidth="100"/>
-                <TableColumn fx:id="colRevenue" text="Pendapatan" prefWidth="110"/>
-                <TableColumn fx:id="colNote" text="Catatan" prefWidth="140"/>
+                <TableColumn fx:id="colProduct" text="Product" prefWidth="140"/>
+                <TableColumn fx:id="colProdDate" text="Production Date" prefWidth="100"/>
+                <TableColumn fx:id="colExpDate" text="Expiry Date" prefWidth="110"/>
+                <TableColumn fx:id="colProduced" text="Produced" prefWidth="90"/>
+                <TableColumn fx:id="colSold" text="Sold" prefWidth="80"/>
+                <TableColumn fx:id="colPrice" text="Selling Price" prefWidth="100"/>
+                <TableColumn fx:id="colRevenue" text="Revenue" prefWidth="110"/>
+                <TableColumn fx:id="colNote" text="Note" prefWidth="140"/>
 
             </columns>
 

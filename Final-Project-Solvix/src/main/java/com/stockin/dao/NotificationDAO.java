@@ -75,8 +75,8 @@ public class NotificationDAO {
 
         Notification notification = new Notification();
         notification.setMaterialId(materialId);
-        notification.setMessage("Stok " + materialName + " menipis (" + stock
-                + " tersisa, minimum " + minimumStock + ")");
+        notification.setMessage("Stock of " + materialName + " is low (" + stock
+                + " remaining, minimum " + minimumStock + ")");
         notification.setCreatedAt(LocalDateTime.now().format(FORMAT));
         notification.setRead(false);
 

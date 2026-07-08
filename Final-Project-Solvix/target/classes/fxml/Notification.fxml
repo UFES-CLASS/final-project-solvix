@@ -16,14 +16,14 @@
                    style="-fx-font-size:22px;
                           -fx-font-weight:bold;"/>
 
-            <Label fx:id="lblUnreadCount" text="0 notifikasi belum dibaca"
+            <Label fx:id="lblUnreadCount" text="0 unread notifications"
                    style="-fx-text-fill:#DC2626; -fx-font-weight:bold;"/>
 
             <HBox spacing="10">
 
-                <Button text="Tandai Dibaca" onAction="#markAsRead"/>
-                <Button text="Tandai Semua Dibaca" onAction="#markAllAsRead"/>
-                <Button text="Hapus" onAction="#deleteNotification"/>
+                <Button text="Mark as Read" onAction="#markAsRead"/>
+                <Button text="Mark All as Read" onAction="#markAllAsRead"/>
+                <Button text="Delete" onAction="#deleteNotification"/>
                 <Button text="Refresh" onAction="#refresh"/>
 
             </HBox>
@@ -40,8 +40,8 @@
 
                 <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
                 <TableColumn fx:id="colMaterial" text="Material" prefWidth="150"/>
-                <TableColumn fx:id="colMessage" text="Pesan" prefWidth="320"/>
-                <TableColumn fx:id="colCreatedAt" text="Waktu" prefWidth="150"/>
+                <TableColumn fx:id="colMessage" text="Message" prefWidth="320"/>
+                <TableColumn fx:id="colCreatedAt" text="Created At" prefWidth="150"/>
                 <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
 
             </columns>

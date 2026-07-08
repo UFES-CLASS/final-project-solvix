@@ -29,12 +29,12 @@
         </VBox>
 
         <VBox spacing="8" prefWidth="200" styleClass="card">
-            <Label text="Incoming Hari Ini" styleClass="card-title"/>
+            <Label text="Today's Incoming" styleClass="card-title"/>
             <Label fx:id="lblIncoming" text="0" styleClass="card-value"/>
         </VBox>
 
         <VBox spacing="8" prefWidth="200" styleClass="card">
-            <Label text="Stok Menipis" styleClass="card-title"/>
+            <Label text="Low Stock Items" styleClass="card-title"/>
             <Label fx:id="lblLowStock" text="0" styleClass="card-value" style="-fx-text-fill:#E53935;"/>
         </VBox>
 
@@ -43,7 +43,7 @@
     <!-- RECENT ACTIVITY -->
     <VBox spacing="10" styleClass="card" VBox.vgrow="ALWAYS">
 
-        <Label text="Notifikasi / Stok Menipis Terbaru" styleClass="section-title"/>
+        <Label text="Notifications / Low Stock Items" styleClass="section-title"/>
 
         <ListView fx:id="activityList"
                   VBox.vgrow="ALWAYS"/>

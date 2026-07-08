@@ -18,11 +18,11 @@
 
             <GridPane hgap="10" vgap="10">
 
-                <Label text="Nama Material"/>
+                <Label text="Material Name"/>
                 <TextField fx:id="txtMaterialName"
                            GridPane.columnIndex="1"/>
 
-                <Label text="Kategori"
+                <Label text="Category"
                        GridPane.rowIndex="1"/>
 
                 <TextField fx:id="txtCategory"
@@ -54,13 +54,13 @@
 
             <HBox spacing="10">
 
-                <Button text="Tambah"
+                <Button text="Add"
                         onAction="#saveMaterial"/>
 
-                <Button text="Ubah"
+                <Button text="Update"
                         onAction="#updateMaterial"/>
 
-                <Button text="Hapus"
+                <Button text="Delete"
                         onAction="#deleteMaterial"/>
 
                 <Button text="Reset"
@@ -87,7 +87,7 @@
                              prefWidth="180"/>
 
                 <TableColumn fx:id="colCategory"
-                             text="Kategori"
+                             text="Category"
                              prefWidth="150"/>
 
                 <TableColumn fx:id="colUnit"

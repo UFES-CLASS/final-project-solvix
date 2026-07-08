@@ -21,20 +21,20 @@
                    style="-fx-font-size:22px;
                           -fx-font-weight:bold;"/>
 
-            <Label text="Laporan dihitung langsung dari data Production (tidak memiliki tabel tersendiri)."
+            <Label text="Revenue is calculated directly from Production data (no separate table)."
                    style="-fx-text-fill:#6B7280;"/>
 
             <!-- FILTER PERIODE -->
             <HBox spacing="10" alignment="CENTER_LEFT">
 
-                <Label text="Dari"/>
+                <Label text="From"/>
                 <DatePicker fx:id="dateFrom"/>
 
-                <Label text="Sampai"/>
+                <Label text="To"/>
                 <DatePicker fx:id="dateTo"/>
 
-                <Button text="Terapkan" onAction="#applyFilter"/>
-                <Button text="Tampilkan Semua" onAction="#resetFilter"/>
+                <Button text="Apply" onAction="#applyFilter"/>
+                <Button text="Show All" onAction="#resetFilter"/>
 
             </HBox>
 
@@ -44,7 +44,7 @@
                 <VBox spacing="5" prefWidth="220"
                       style="-fx-background-color:white; -fx-padding:15;
                              -fx-background-radius:8; -fx-border-color:#E5E7EB; -fx-border-radius:8;">
-                    <Label text="Total Produksi" style="-fx-text-fill:#6B7280;"/>
+                    <Label text="Total Produced" style="-fx-text-fill:#6B7280;"/>
                     <Label fx:id="lblTotalProduced" text="0"
                            style="-fx-font-size:26; -fx-font-weight:bold; -fx-text-fill:#2563EB;"/>
                 </VBox>
@@ -52,7 +52,7 @@
                 <VBox spacing="5" prefWidth="220"
                       style="-fx-background-color:white; -fx-padding:15;
                              -fx-background-radius:8; -fx-border-color:#E5E7EB; -fx-border-radius:8;">
-                    <Label text="Total Terjual" style="-fx-text-fill:#6B7280;"/>
+                    <Label text="Total Sold" style="-fx-text-fill:#6B7280;"/>
                     <Label fx:id="lblTotalSold" text="0"
                            style="-fx-font-size:26; -fx-font-weight:bold; -fx-text-fill:#2563EB;"/>
                 </VBox>
@@ -60,7 +60,7 @@
                 <VBox spacing="5" prefWidth="220"
                       style="-fx-background-color:white; -fx-padding:15;
                              -fx-background-radius:8; -fx-border-color:#E5E7EB; -fx-border-radius:8;">
-                    <Label text="Pendapatan" style="-fx-text-fill:#6B7280;"/>
+                    <Label text="Revenue" style="-fx-text-fill:#6B7280;"/>
                     <Label fx:id="lblRevenue" text="Rp 0"
                            style="-fx-font-size:26; -fx-font-weight:bold; -fx-text-fill:#16A34A;"/>
                 </VBox>
@@ -70,37 +70,37 @@
             <!-- GRAFIK -->
             <HBox spacing="15">
 
-                <BarChart fx:id="chartByProduct" prefWidth="480" prefHeight="300" title="Pendapatan per Produk">
+                <BarChart fx:id="chartByProduct" prefWidth="480" prefHeight="300" title="Revenue per Product">
                     <xAxis>
-                        <CategoryAxis label="Produk"/>
+                        <CategoryAxis label="Product"/>
                     </xAxis>
                     <yAxis>
-                        <NumberAxis label="Pendapatan (Rp)"/>
+                        <NumberAxis label="Revenue (IDR)"/>
                     </yAxis>
                 </BarChart>
 
-                <LineChart fx:id="chartByDate" prefWidth="480" prefHeight="300" title="Tren Pendapatan per Tanggal">
+                <LineChart fx:id="chartByDate" prefWidth="480" prefHeight="300" title="Revenue per Date">
                     <xAxis>
-                        <CategoryAxis label="Tanggal"/>
+                        <CategoryAxis label="Date"/>
                     </xAxis>
                     <yAxis>
-                        <NumberAxis label="Pendapatan (Rp)"/>
+                        <NumberAxis label="Revenue (IDR)"/>
                     </yAxis>
                 </LineChart>
 
             </HBox>
 
             <!-- TABEL RINCIAN PER PRODUK -->
-            <Label text="Rincian per Produk" style="-fx-font-size:16; -fx-font-weight:bold;"/>
+            <Label text="List of Product" style="-fx-font-size:16; -fx-font-weight:bold;"/>
 
             <TableView fx:id="tableSummary" prefHeight="220">
 
                 <columns>
 
-                    <TableColumn fx:id="colProduct" text="Produk" prefWidth="220"/>
-                    <TableColumn fx:id="colProduced" text="Total Produksi" prefWidth="150"/>
-                    <TableColumn fx:id="colSold" text="Total Terjual" prefWidth="150"/>
-                    <TableColumn fx:id="colRevenue" text="Pendapatan" prefWidth="180"/>
+                    <TableColumn fx:id="colProduct" text="Product" prefWidth="220"/>
+                    <TableColumn fx:id="colProduced" text="Total Produced" prefWidth="150"/>
+                    <TableColumn fx:id="colSold" text="Total Sold" prefWidth="150"/>
+                    <TableColumn fx:id="colRevenue" text="Revenue" prefWidth="180"/>
 
                 </columns>
 

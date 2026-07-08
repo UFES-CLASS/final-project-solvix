@@ -181,7 +181,7 @@ public class ProductionController {
         Product product = cmbProduct.getValue();
 
         if (product == null || dateProduction.getValue() == null) {
-            AlertUtil.warning("Data belum lengkap", "Produk dan tanggal produksi wajib diisi.");
+            AlertUtil.warning("Data is incomplete", "Product and production date are required.");
             return;
         }
 
@@ -199,7 +199,7 @@ public class ProductionController {
             boolean success = productionDAO.addProduction(production);
 
             if (!success) {
-                AlertUtil.error("Gagal", "Data produksi gagal disimpan.");
+                AlertUtil.error("Failed", "Failed to save production data.");
                 return;
             }
 
@@ -207,10 +207,10 @@ public class ProductionController {
 
             loadTable();
             clearForm();
-            AlertUtil.info("Berhasil", "Data produksi berhasil disimpan.");
+            AlertUtil.info("Success", "Production data saved successfully.");
 
         } catch (NumberFormatException e) {
-            AlertUtil.warning("Data tidak valid", "Jumlah dan harga harus berupa angka.");
+            AlertUtil.warning("Data is invalid", "Quantity and price must be valid numbers.");
         }
 
     }
@@ -219,14 +219,14 @@ public class ProductionController {
     private void updateProduction() {
 
         if (selectedProduction == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih data produksi pada tabel terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a production record from the table first.");
             return;
         }
 
         Product product = cmbProduct.getValue();
 
         if (product == null || dateProduction.getValue() == null) {
-            AlertUtil.warning("Data belum lengkap", "Produk dan tanggal produksi wajib diisi.");
+            AlertUtil.warning("Data is incomplete", "Product and production date are required.");
             return;
         }
 
@@ -245,13 +245,13 @@ public class ProductionController {
             if (success) {
                 loadTable();
                 clearForm();
-                AlertUtil.info("Berhasil", "Data produksi berhasil diperbarui.");
+                AlertUtil.info("Success", "Production data updated successfully.");
             } else {
-                AlertUtil.error("Gagal", "Data produksi gagal diperbarui.");
+                AlertUtil.error("Failed", "Failed to update production data.");
             }
 
         } catch (NumberFormatException e) {
-            AlertUtil.warning("Data tidak valid", "Jumlah dan harga harus berupa angka.");
+            AlertUtil.warning("Data is invalid", "Quantity and price must be valid numbers.");
         }
 
     }
@@ -260,11 +260,11 @@ public class ProductionController {
     private void deleteProduction() {
 
         if (selectedProduction == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih data produksi pada tabel terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a production record from the table first.");
             return;
         }
 
-        boolean confirm = AlertUtil.confirm("Konfirmasi Hapus", "Hapus data produksi ini?");
+        boolean confirm = AlertUtil.confirm("Confirm Delete", "Delete this production record?");
 
         if (!confirm) {
             return;
@@ -275,9 +275,9 @@ public class ProductionController {
         if (success) {
             loadTable();
             clearForm();
-            AlertUtil.info("Berhasil", "Data produksi berhasil dihapus.");
+            AlertUtil.info("Success", "Production data deleted successfully.");
         } else {
-            AlertUtil.error("Gagal", "Data produksi gagal dihapus.");
+            AlertUtil.error("Failed", "Failed to delete production data.");
         }
 
     }
@@ -308,12 +308,12 @@ public class ProductionController {
         String qtyText = txtMaterialQtyUsed.getText().trim();
 
         if (material == null) {
-            AlertUtil.warning("Data belum lengkap", "Pilih material terlebih dahulu.");
+            AlertUtil.warning("Data is incomplete", "Please select a material first.");
             return;
         }
 
         if (qtyText.isEmpty()) {
-            AlertUtil.warning("Data belum lengkap", "Isi jumlah bahan yang dipakai.");
+            AlertUtil.warning("Data is incomplete", "Please enter the quantity of material used.");
             return;
         }
 
@@ -322,7 +322,7 @@ public class ProductionController {
             int qtyUsed = Integer.parseInt(qtyText);
 
             if (qtyUsed <= 0) {
-                AlertUtil.warning("Data tidak valid", "Jumlah bahan dipakai harus lebih dari 0.");
+                AlertUtil.warning("Data is invalid", "Quantity of material used must be greater than 0.");
                 return;
             }
 
@@ -358,7 +358,7 @@ public class ProductionController {
             txtMaterialQtyUsed.clear();
 
         } catch (NumberFormatException e) {
-            AlertUtil.warning("Data tidak valid", "Jumlah bahan dipakai harus berupa angka.");
+            AlertUtil.warning("Data is invalid", "Quantity of material used must be a valid number.");
         }
 
     }
@@ -372,7 +372,7 @@ public class ProductionController {
         MaterialUsageItem selected = tableMaterialUsed.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih baris material pada daftar bahan terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a material row from the list first.");
             return;
         }
 

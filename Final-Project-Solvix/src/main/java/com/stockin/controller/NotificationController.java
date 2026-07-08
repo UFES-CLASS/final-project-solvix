@@ -56,7 +56,7 @@ public class NotificationController {
             @Override
             protected void updateItem(Boolean value, boolean empty) {
                 super.updateItem(value, empty);
-                setText(empty || value == null ? null : (value ? "Sudah dibaca" : "Belum dibaca"));
+                setText(empty || value == null ? null : (value ? "Have been read" : "Not read yet"));
             }
         });
 
@@ -88,7 +88,7 @@ public class NotificationController {
     private void loadTable() {
 
         notificationList.setAll(notificationDAO.getAllNotifications());
-        lblUnreadCount.setText(notificationDAO.countUnread() + " notifikasi belum dibaca");
+        lblUnreadCount.setText(notificationDAO.countUnread() + " unread notifications");
 
     }
 
@@ -96,7 +96,7 @@ public class NotificationController {
     private void markAsRead() {
 
         if (selectedNotification == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih notifikasi pada tabel terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a notification from the table first.");
             return;
         }
 
@@ -117,11 +117,11 @@ public class NotificationController {
     private void deleteNotification() {
 
         if (selectedNotification == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih notifikasi pada tabel terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a notification from the table first.");
             return;
         }
 
-        boolean confirm = AlertUtil.confirm("Konfirmasi Hapus", "Hapus notifikasi ini?");
+        boolean confirm = AlertUtil.confirm("Confirm Delete", "Delete this notification?");
 
         if (!confirm) {
             return;

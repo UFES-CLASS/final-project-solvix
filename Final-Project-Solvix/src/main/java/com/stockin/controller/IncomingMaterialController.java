@@ -156,7 +156,7 @@ public class IncomingMaterialController {
         Material material = cmbMaterial.getValue();
 
         if (material == null || dateIncoming.getValue() == null) {
-            AlertUtil.warning("Data belum lengkap", "Material dan tanggal wajib diisi.");
+            AlertUtil.warning("Data is incomplete", "Material and date are required.");
             return;
         }
 
@@ -177,13 +177,13 @@ public class IncomingMaterialController {
                 refreshMaterialCombo();
                 loadTable();
                 clearForm();
-                AlertUtil.info("Berhasil", "Bahan masuk berhasil disimpan. Stok material otomatis bertambah.");
+                AlertUtil.info("Success", "Incoming material saved successfully. Material stock updated automatically.");
             } else {
-                AlertUtil.error("Gagal", "Bahan masuk gagal disimpan.");
+                AlertUtil.error("Failed", "Failed to save incoming material.");
             }
 
         } catch (NumberFormatException e) {
-            AlertUtil.warning("Data tidak valid", "Jumlah dan Harga Satuan harus berupa angka.");
+            AlertUtil.warning("Data is invalid", "Quantity and Unit Price must be valid numbers.");
         }
 
     }
@@ -192,14 +192,14 @@ public class IncomingMaterialController {
     private void updateIncoming() {
 
         if (selectedIncoming == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih data pada tabel terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a record from the table first.");
             return;
         }
 
         Material material = cmbMaterial.getValue();
 
         if (material == null || dateIncoming.getValue() == null) {
-            AlertUtil.warning("Data belum lengkap", "Material dan tanggal wajib diisi.");
+            AlertUtil.warning("Data is incomplete", "Material and date are required.");
             return;
         }
 
@@ -219,13 +219,13 @@ public class IncomingMaterialController {
                 refreshMaterialCombo();
                 loadTable();
                 clearForm();
-                AlertUtil.info("Berhasil", "Bahan masuk berhasil diperbarui.");
+                AlertUtil.info("Success", "Incoming material updated successfully.");
             } else {
-                AlertUtil.error("Gagal", "Bahan masuk gagal diperbarui.");
+                AlertUtil.error("Failed", "Failed to update incoming material.");
             }
 
         } catch (NumberFormatException e) {
-            AlertUtil.warning("Data tidak valid", "Jumlah dan Harga Satuan harus berupa angka.");
+            AlertUtil.warning("Data is invalid", "Quantity and Unit Price must be valid numbers.");
         }
 
     }
@@ -234,12 +234,12 @@ public class IncomingMaterialController {
     private void deleteIncoming() {
 
         if (selectedIncoming == null) {
-            AlertUtil.warning("Belum ada pilihan", "Pilih data pada tabel terlebih dahulu.");
+            AlertUtil.warning("No selection", "Please select a record from the table first.");
             return;
         }
 
-        boolean confirm = AlertUtil.confirm("Konfirmasi Hapus",
-                "Hapus data bahan masuk ini? Stok material akan dikurangi kembali.");
+        boolean confirm = AlertUtil.confirm("Confirm Delete",
+                "Delete this incoming material record? Material stock will be reduced accordingly.");
 
         if (!confirm) {
             return;
@@ -251,9 +251,9 @@ public class IncomingMaterialController {
             refreshMaterialCombo();
             loadTable();
             clearForm();
-            AlertUtil.info("Berhasil", "Data bahan masuk berhasil dihapus.");
+            AlertUtil.info("Success", "Incoming material deleted successfully.");
         } else {
-            AlertUtil.error("Gagal", "Data bahan masuk gagal dihapus.");
+            AlertUtil.error("Failed", "Failed to delete incoming material.");
         }
 
     }

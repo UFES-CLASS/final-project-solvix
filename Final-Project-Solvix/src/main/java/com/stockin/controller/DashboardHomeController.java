@@ -1,5 +1,8 @@
 package com.stockin.controller;
 
+import java.time.LocalDate;
+import java.util.List;
+
 import com.stockin.dao.IncomingMaterialDAO;
 import com.stockin.dao.MaterialDAO;
 import com.stockin.dao.ProductDAO;
@@ -9,9 +12,6 @@ import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
-
-import java.time.LocalDate;
-import java.util.List;
 
 public class DashboardHomeController {
 
@@ -47,13 +47,13 @@ public class DashboardHomeController {
         if (lowStock.isEmpty()) {
 
             activityList.setItems(FXCollections.observableArrayList(
-                    "Tidak ada bahan dengan stok menipis saat ini."));
+                    "No low stock items."));
 
         } else {
 
             activityList.setItems(FXCollections.observableArrayList(
                     lowStock.stream()
-                            .map(m -> "Stok menipis: " + m.getMaterialName()
+                            .map(m -> "Low Stock Item: " + m.getMaterialName()
                                     + " (" + m.getStock() + " " + m.getUnit()
                                     + ", minimum " + m.getMinimumStock() + ")")
                             .toList()));
