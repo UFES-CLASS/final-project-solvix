@@ -139,7 +139,7 @@ public class ReportController {
         chartByProduct.getData().clear();
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Pendapatan");
+        series.setName("Revenue");
 
         for (ProductSummary summary : byProduct.values()) {
             series.getData().add(new XYChart.Data<>(summary.getProductName(), summary.getRevenue()));
@@ -154,7 +154,7 @@ public class ReportController {
         chartByDate.getData().clear();
 
         XYChart.Series<String, Number> series = new XYChart.Series<>();
-        series.setName("Pendapatan");
+        series.setName("Revenue");
 
         for (Map.Entry<String, Double> entry : byDate.entrySet()) {
             series.getData().add(new XYChart.Data<>(entry.getKey(), entry.getValue()));
