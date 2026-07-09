@@ -62,7 +62,7 @@ public class NotificationDAO {
 
             try (ResultSet rs = ps.executeQuery()) {
 
-                if (rs.next() && rs.getInt("total") > 0) {
+                if (rs.next() && rs.getInt("Total") > 0) {
                     return; // sudah ada notifikasi belum dibaca, tidak perlu duplikat
                 }
 
