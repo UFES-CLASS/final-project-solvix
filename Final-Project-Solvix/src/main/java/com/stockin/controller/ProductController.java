@@ -111,7 +111,7 @@ public class ProductController {
     private void chooseImage() {
 
         FileChooser chooser = new FileChooser();
-        chooser.setTitle("Pilih Gambar Produk");
+        chooser.setTitle("Choose Product Image");
         chooser.getExtensionFilters().add(
                 new FileChooser.ExtensionFilter("Images", "*.png", "*.jpg", "*.jpeg"));
 

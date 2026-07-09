@@ -23,7 +23,7 @@
 
                     <ImageView fx:id="imgPreview" fitWidth="120" fitHeight="120" preserveRatio="true"/>
 
-                    <Button text="Pilih Gambar" onAction="#chooseImage"/>
+                    <Button text="Choose Image" onAction="#chooseImage"/>
 
                 </VBox>
 
