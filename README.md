@@ -303,8 +303,6 @@ Password
 
 staff123
 
-> Replace these credentials with the actual accounts stored in the SQLite database if they are different.
-
 ---
 
 # Application Modules
