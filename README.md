@@ -1,17 +1,29 @@
 # STOCKIN
-### Smart Inventory System for Reseller
+### Smart Inventory System
 
 Desktop-based Inventory Management System for Micro, Small, and Medium Enterprises (MSMEs)
 
 ---
 
-# About the Project
+# Background
+
+The development of **STOCKIN** was initiated based on an interview and observation conducted with **J'Sushi**, a Micro, Small, and Medium Enterprise (MSME) operating in the food and beverage sector.
+
+The interview revealed that most business operations were still managed manually. Product inventory, raw material stock, incoming material transactions, production records, and financial calculations were recorded using handwritten notes. This manual process often led to inaccurate stock records, delayed updates, calculation errors, and difficulties in monitoring business performance.
+
+Furthermore, the absence of an integrated inventory management system made it difficult for the business owner to monitor stock availability, manage production activities, and generate financial reports efficiently.
+
+To address these challenges, **STOCKIN (Smart Inventory System)** was developed as a desktop-based application. The system integrates inventory management, production recording, incoming material management, stock monitoring, and financial reporting into a single platform. By digitizing these business processes, STOCKIN aims to improve operational efficiency, reduce human error, and support better decision-making for MSMEs.
+
+---
+
+# Project Overview
 
 STOCKIN is a desktop-based Smart Inventory System designed to assist Micro, Small, and Medium Enterprises (MSMEs) in managing inventory, production, and sales activities efficiently.
 
 The application enables users to manage products, raw materials, incoming material transactions, production activities, stock notifications, and financial reports within a single integrated system.
 
-The system is developed using **JavaFX** following the **Model-View-Controller (MVC)** architectural pattern and uses **SQLite** as its database management system.
+The system is developed using **JavaFX**, follows the **Model–View–Controller (MVC)** architectural pattern, and uses **SQLite** as its database management system.
 
 ---
 
@@ -289,7 +301,7 @@ owner
 
 Password
 
-owner123
+12345
 
 ---
 
@@ -301,7 +313,7 @@ staff
 
 Password
 
-staff123
+12345
 
 ---
 
