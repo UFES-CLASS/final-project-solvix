@@ -1,84 +1,191 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Circle?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
+<ScrollPane fitToWidth="true"
+            style="-fx-background-color:transparent; -fx-background: transparent;"
+            xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.stockin.controller.ProductController">
 
-    <top>
+    <content>
 
-        <VBox spacing="10">
+        <VBox spacing="20" style="-fx-background-color:transparent;">
 
-            <Label text="Product Management"
-                   style="-fx-font-size:22px;
-                          -fx-font-weight:bold;"/>
+            <padding>
+                <Insets top="0" right="4" bottom="20" left="0"/>
+            </padding>
+
+            <Label text="Product Management" styleClass="page-title"/>
 
             <HBox spacing="20">
 
-                <VBox alignment="CENTER" spacing="8">
+                <!-- ================= ADD / EDIT FORM ================= -->
+                <VBox spacing="18" styleClass="card" prefWidth="460" minWidth="420" maxWidth="460">
 
-                    <ImageView fx:id="imgPreview" fitWidth="120" fitHeight="120" preserveRatio="true"/>
+                    <Label text="Add / Edit Product Details" styleClass="panel-title"/>
 
-                    <Button text="Pilih Gambar" onAction="#chooseImage"/>
+                    <VBox spacing="8">
+                        <Label text="Product Image" styleClass="form-label"/>
+
+                        <HBox spacing="14">
+
+                            <VBox fx:id="btnAddPhoto" alignment="CENTER" spacing="6"
+                                  styleClass="photo-placeholder" onMouseClicked="#chooseImage">
+                                <Label text="&#128247;" styleClass="photo-placeholder-icon"/>
+                                <Label text="Add Photo" styleClass="photo-placeholder-text"/>
+                            </VBox>
+
+                            <StackPane styleClass="photo-preview-box">
+                                <ImageView fx:id="imgPreview" fitWidth="86" fitHeight="86" preserveRatio="true"/>
+                            </StackPane>
+
+                            <Region HBox.hgrow="ALWAYS"/>
+
+                        </HBox>
+                    </VBox>
+
+                    <VBox spacing="12">
+
+                        <Label text="Basic Info" styleClass="form-section-label"/>
+
+                        <HBox spacing="14">
+
+                            <VBox spacing="6" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                                <Label text="Product Name" styleClass="form-label"/>
+                                <TextField fx:id="txtProductName" promptText="Product Name" styleClass="text-field"/>
+                            </VBox>
+
+                            <VBox spacing="6" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                                <Label text="Product SKU" styleClass="form-label"/>
+                                <TextField fx:id="txtSku" promptText="SKU-XXX-000" styleClass="text-field"/>
+                            </VBox>
+
+                            <VBox spacing="6" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                                <Label text="Category" styleClass="form-label"/>
+                                <ComboBox fx:id="cmbCategory" editable="true" promptText="Category"
+                                          maxWidth="Infinity" styleClass="combo-box"/>
+                            </VBox>
+
+                        </HBox>
+
+                    </VBox>
+
+                    <VBox spacing="12">
+
+                        <Label text="Pricing" styleClass="form-section-label"/>
+
+                        <VBox spacing="6">
+                            <Label text="Selling Price" styleClass="form-label"/>
+                            <TextField fx:id="txtSellingPrice" promptText="Rp 0.00" styleClass="text-field"/>
+                        </VBox>
+
+                    </VBox>
+
+                    <VBox spacing="6">
+                        <Label text="Description" styleClass="form-label"/>
+                        <TextArea fx:id="txtDescription" promptText="Description" wrapText="true"
+                                  prefRowCount="3" styleClass="text-area"/>
+                    </VBox>
+
+                    <VBox spacing="10">
+
+                        <Label text="Status" styleClass="form-section-label"/>
+
+                        <HBox spacing="10" alignment="CENTER_LEFT">
+
+                            <Label text="Active Status" styleClass="form-label"/>
+
+                            <StackPane fx:id="toggleTrack" styleClass="switch-track-on" onMouseClicked="#toggleActiveStatus">
+                                <Circle fx:id="toggleKnob" radius="9" styleClass="switch-knob"
+                                        StackPane.alignment="CENTER_LEFT" translateX="3"/>
+                            </StackPane>
+
+                            <Label fx:id="lblStatusText" text="Active" styleClass="form-label"/>
+
+                        </HBox>
+
+                    </VBox>
+
+                    <HBox spacing="10">
+
+                        <Button text="&#10004;  Save Product" onAction="#saveProduct" styleClass="btn-success"
+                                HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+
+                        <Button text="&#8634;  Reset" onAction="#clearForm" styleClass="btn-outline"
+                                HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+
+                        <Button text="&#128465;  Delete Product" onAction="#deleteProduct" styleClass="btn-danger"
+                                HBox.hgrow="ALWAYS" maxWidth="Infinity"/>
+
+                    </HBox>
 
                 </VBox>
 
-                <GridPane hgap="10" vgap="10" HBox.hgrow="ALWAYS">
+                <!-- ================= INVENTORY TABLE ================= -->
+                <VBox spacing="14" styleClass="card" HBox.hgrow="ALWAYS" maxWidth="Infinity">
 
-                    <Label text="Product Name" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                    <TextField fx:id="txtProductName" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                    <Label text="Active Product Inventory" styleClass="panel-title"/>
 
-                    <Label text="Selling Price" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                    <TextField fx:id="txtSellingPrice" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                    <HBox spacing="12" alignment="CENTER_LEFT">
 
-                    <Label text="Description" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                    <TextField fx:id="txtDescription" GridPane.rowIndex="1" GridPane.columnIndex="1"
-                               GridPane.columnSpan="3"/>
+                        <TextField fx:id="txtSearch" promptText="&#128269;  Search Products..."
+                                   styleClass="text-field" HBox.hgrow="ALWAYS"/>
 
-                    <Label text="Active Status" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                    <CheckBox fx:id="chkActive" selected="true" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <ComboBox fx:id="cmbCategoryFilter" prefWidth="160" styleClass="combo-box"/>
 
-                </GridPane>
+                    </HBox>
 
-            </HBox>
+                    <TableView fx:id="tableProduct" prefHeight="420" minHeight="260" VBox.vgrow="ALWAYS"
+                               styleClass="table-view, table-view-light">
 
-            <HBox spacing="10">
+                        <columns>
 
-                <Button text="Add" onAction="#saveProduct"/>
-                <Button text="Update" onAction="#updateProduct"/>
-                <Button text="Delete" onAction="#deleteProduct"/>
-                <Button text="Reset" onAction="#clearForm"/>
+                            <TableColumn fx:id="colId" text="ID" prefWidth="45"/>
+                            <TableColumn fx:id="colImage" text="Image" prefWidth="70" sortable="false"/>
+                            <TableColumn fx:id="colName" text="Product Name" prefWidth="140"/>
+                            <TableColumn fx:id="colSku" text="SKU" prefWidth="95"/>
+                            <TableColumn fx:id="colDescription" text="Description" prefWidth="200"/>
+                            <TableColumn fx:id="colPrice" text="Selling Price" prefWidth="110"/>
+                            <TableColumn fx:id="colActive" text="Status" prefWidth="70" sortable="false"/>
+                            <TableColumn fx:id="colActions" text="Actions" prefWidth="90" sortable="false"/>
+
+                        </columns>
+
+                    </TableView>
+
+                    <HBox spacing="8" alignment="CENTER_LEFT">
+
+                        <Button fx:id="btnFirstPage" text="&#9198;" onAction="#goFirstPage" styleClass="pagination-btn"/>
+                        <Button fx:id="btnPrevPage" text="&#9664;" onAction="#goPrevPage" styleClass="pagination-btn"/>
+
+                        <Region HBox.hgrow="ALWAYS"/>
+
+                        <Button fx:id="btnNextPage" text="&#9654;" onAction="#goNextPage" styleClass="pagination-btn"/>
+                        <Button fx:id="btnLastPage" text="&#9197;" onAction="#goLastPage" styleClass="pagination-btn"/>
+
+                    </HBox>
+
+                </VBox>
 
             </HBox>
 
         </VBox>
 
-    </top>
+    </content>
 
-    <center>
-
-        <TableView fx:id="tableProduct">
-
-            <columns>
-
-                <TableColumn fx:id="colId" text="ID" prefWidth="60"/>
-                <TableColumn fx:id="colName" text="Product Name" prefWidth="200"/>
-                <TableColumn fx:id="colDescription" text="Description" prefWidth="220"/>
-                <TableColumn fx:id="colPrice" text="Selling Price" prefWidth="120"/>
-                <TableColumn fx:id="colActive" text="Active" prefWidth="80"/>
-
-            </columns>
-
-        </TableView>
-
-    </center>
-
-    <padding>
-        <Insets top="20" right="20" left="20" bottom="20"/>
-    </padding>
-
-</BorderPane>
+</ScrollPane>

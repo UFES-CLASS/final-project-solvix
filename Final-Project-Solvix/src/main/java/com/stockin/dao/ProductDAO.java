@@ -9,22 +9,25 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TreeSet;
 
 public class ProductDAO {
 
     public boolean addProduct(Product product) {
 
-        String sql = "INSERT INTO products(productName, productImage, description, sellingPrice, isActive) "
-                + "VALUES(?,?,?,?,?)";
+        String sql = "INSERT INTO products(productName, productImage, sku, category, description, sellingPrice, isActive) "
+                + "VALUES(?,?,?,?,?,?,?)";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             ps.setString(1, product.getProductName());
             ps.setString(2, product.getProductImage());
-            ps.setString(3, product.getDescription());
-            ps.setDouble(4, product.getSellingPrice());
-            ps.setInt(5, product.isActive() ? 1 : 0);
+            ps.setString(3, product.getSku());
+            ps.setString(4, product.getCategory());
+            ps.setString(5, product.getDescription());
+            ps.setDouble(6, product.getSellingPrice());
+            ps.setInt(7, product.isActive() ? 1 : 0);
 
             int rows = ps.executeUpdate();
 
@@ -49,7 +52,7 @@ public class ProductDAO {
 
     public boolean updateProduct(Product product) {
 
-        String sql = "UPDATE products SET productName=?, productImage=?, description=?, "
+        String sql = "UPDATE products SET productName=?, productImage=?, sku=?, category=?, description=?, "
                 + "sellingPrice=?, isActive=? WHERE productId=?";
 
         try (Connection conn = DatabaseConnection.getConnection();
@@ -57,10 +60,12 @@ public class ProductDAO {
 
             ps.setString(1, product.getProductName());
             ps.setString(2, product.getProductImage());
-            ps.setString(3, product.getDescription());
-            ps.setDouble(4, product.getSellingPrice());
-            ps.setInt(5, product.isActive() ? 1 : 0);
-            ps.setInt(6, product.getProductId());
+            ps.setString(3, product.getSku());
+            ps.setString(4, product.getCategory());
+            ps.setString(5, product.getDescription());
+            ps.setDouble(6, product.getSellingPrice());
+            ps.setInt(7, product.isActive() ? 1 : 0);
+            ps.setInt(8, product.getProductId());
 
             return ps.executeUpdate() > 0;
 
@@ -136,6 +141,32 @@ public class ProductDAO {
 
     }
 
+    /**
+     * Daftar kategori unik yang sudah pernah dipakai, buat mengisi pilihan
+     * di ComboBox kategori (baik di form maupun filter tabel).
+     */
+    public List<String> getAllCategories() {
+
+        TreeSet<String> categories = new TreeSet<>(String.CASE_INSENSITIVE_ORDER);
+
+        String sql = "SELECT DISTINCT category FROM products WHERE category IS NOT NULL AND category != ''";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                categories.add(rs.getString("category"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return new ArrayList<>(categories);
+
+    }
+
     public int countAll() {
 
         String sql = "SELECT COUNT(*) AS total FROM products";
@@ -163,6 +194,8 @@ public class ProductDAO {
         product.setProductId(rs.getInt("productId"));
         product.setProductName(rs.getString("productName"));
         product.setProductImage(rs.getString("productImage"));
+        product.setSku(rs.getString("sku"));
+        product.setCategory(rs.getString("category"));
         product.setDescription(rs.getString("description"));
         product.setSellingPrice(rs.getDouble("sellingPrice"));
         product.setActive(rs.getInt("isActive") == 1);

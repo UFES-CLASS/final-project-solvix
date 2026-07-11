@@ -1,117 +1,169 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.DatePicker?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
+<ScrollPane fitToWidth="true"
+            style="-fx-background-color:transparent; -fx-background: transparent;"
+            xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.stockin.controller.ProductionController">
 
-    <top>
+    <content>
 
-        <VBox spacing="10">
+        <VBox spacing="20" style="-fx-background-color:transparent;">
 
-            <Label text="Production"
-                   style="-fx-font-size:22px;
-                          -fx-font-weight:bold;"/>
+            <padding>
+                <Insets top="0" right="4" bottom="20" left="0"/>
+            </padding>
 
-            <GridPane hgap="10" vgap="10">
+            <!-- ================= ADD / EDIT FORM ================= -->
+            <VBox spacing="18" styleClass="card">
 
-                <Label text="Product" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="cmbProduct" prefWidth="200" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                <Label text="Add New Production Record" styleClass="page-title"/>
 
-                <Label text="Production Date" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                <DatePicker fx:id="dateProduction" prefWidth="150" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                <HBox spacing="24">
 
-                <Label text="Expiration Date" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <DatePicker fx:id="dateExpired" prefWidth="150" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                    <!-- LEFT COLUMN -->
+                    <VBox spacing="16" HBox.hgrow="ALWAYS" maxWidth="Infinity">
 
-                <Label text="Selling Price" GridPane.rowIndex="1" GridPane.columnIndex="2"/>
-                <TextField fx:id="txtSellingPrice" GridPane.rowIndex="1" GridPane.columnIndex="3"/>
+                        <VBox spacing="6">
+                            <Label text="Product" styleClass="form-label"/>
+                            <ComboBox fx:id="cmbProduct" promptText="Select product"
+                                      maxWidth="Infinity" styleClass="combo-box"/>
+                        </VBox>
 
-                <Label text="Quantity Produced" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="txtQuantityProduced" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                        <VBox spacing="6">
+                            <Label text="Production Date" styleClass="form-label"/>
+                            <DatePicker fx:id="dateProduction" maxWidth="Infinity" styleClass="text-field"/>
+                        </VBox>
 
-                <Label text="Quantity Sold" GridPane.rowIndex="2" GridPane.columnIndex="2"/>
-                <TextField fx:id="txtQuantitySold" GridPane.rowIndex="2" GridPane.columnIndex="3"/>
+                        <VBox spacing="6">
+                            <Label text="Expiration Date" styleClass="form-label"/>
+                            <DatePicker fx:id="dateExpired" maxWidth="Infinity" styleClass="text-field"/>
+                        </VBox>
 
-                <Label text="Note" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <TextField fx:id="txtNote" GridPane.rowIndex="3" GridPane.columnIndex="1"
-                           GridPane.columnSpan="3"/>
+                        <VBox spacing="6" VBox.vgrow="ALWAYS">
+                            <Label text="Note" styleClass="form-label"/>
+                            <TextArea fx:id="txtNote" promptText="Note" wrapText="true"
+                                      prefRowCount="3" styleClass="text-area" VBox.vgrow="ALWAYS"/>
+                        </VBox>
 
-            </GridPane>
+                    </VBox>
 
-            <Separator/>
+                    <!-- RIGHT COLUMN -->
+                    <VBox spacing="16" HBox.hgrow="ALWAYS" maxWidth="Infinity">
 
-            <Label text="Materials Used (optional, can select more than one material, stock will be reduced automatically when Added)"
-                   style="-fx-font-weight:bold;"/>
+                        <VBox spacing="6">
+                            <Label text="Selling Price" styleClass="form-label"/>
+                            <TextField fx:id="txtSellingPrice" promptText="0" styleClass="text-field"/>
+                        </VBox>
 
-            <GridPane hgap="10" vgap="10">
+                        <VBox spacing="6">
+                            <Label text="Quantity Produced" styleClass="form-label"/>
+                            <TextField fx:id="txtQuantityProduced" promptText="0" styleClass="text-field"/>
+                        </VBox>
 
-                <Label text="Material" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="cmbMaterialUsed" prefWidth="200" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+                        <VBox spacing="6">
+                            <Label text="Quantity Sold" styleClass="form-label"/>
+                            <TextField fx:id="txtQuantitySold" promptText="0" styleClass="text-field"/>
+                        </VBox>
 
-                <Label text="Quantity Used" GridPane.rowIndex="0" GridPane.columnIndex="2"/>
-                <TextField fx:id="txtMaterialQtyUsed" GridPane.rowIndex="0" GridPane.columnIndex="3"/>
+                    </VBox>
 
-                <Button text="+ Add Material" onAction="#addMaterialUsage"
-                        GridPane.rowIndex="0" GridPane.columnIndex="4"/>
+                </HBox>
 
-            </GridPane>
+                <Separator/>
 
-            <TableView fx:id="tableMaterialUsed" prefHeight="110">
+                <VBox spacing="4">
+                    <Label text="Materials Used for this Production" styleClass="panel-title"/>
+                    <Label text="Materials Used (optional, can select more than one material, stock will be reduced automatically when Added)"
+                           styleClass="notification-sub-label" wrapText="true"/>
+                </VBox>
 
-                <columns>
-                    <TableColumn fx:id="colMaterialUsedName" text="Material" prefWidth="220"/>
-                    <TableColumn fx:id="colMaterialUsedQty" text="Quantity Used" prefWidth="150"/>
-                </columns>
+                <HBox spacing="12" alignment="BOTTOM_LEFT">
 
-            </TableView>
+                    <VBox spacing="6" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                        <Label text="Material" styleClass="form-label"/>
+                        <ComboBox fx:id="cmbMaterialUsed" promptText="Select material"
+                                  maxWidth="Infinity" styleClass="combo-box"/>
+                    </VBox>
 
-            <HBox spacing="10">
+                    <VBox spacing="6" prefWidth="180">
+                        <Label text="Quantity Used" styleClass="form-label"/>
+                        <TextField fx:id="txtMaterialQtyUsed" promptText="0" styleClass="text-field"/>
+                    </VBox>
 
-                <Button text="Remove Selected Material" onAction="#removeMaterialUsage"/>
+                    <Button text="+  Add Material" onAction="#addMaterialUsage" styleClass="btn-success"/>
 
-            </HBox>
+                </HBox>
 
-            <HBox spacing="10">
+                <TableView fx:id="tableMaterialUsed" prefHeight="150" minHeight="120"
+                           styleClass="table-view, table-view-light">
 
-                <Button text="Add" onAction="#saveProduction"/>
-                <Button text="Update" onAction="#updateProduction"/>
-                <Button text="Delete" onAction="#deleteProduction"/>
-                <Button text="Reset" onAction="#clearForm"/>
+                    <columns>
+                        <TableColumn fx:id="colMaterialUsedName" text="Material" prefWidth="260"/>
+                        <TableColumn fx:id="colMaterialUsedQty" text="Quantity Used" prefWidth="220"/>
+                        <TableColumn fx:id="colMaterialUsedUnit" text="Unit" prefWidth="150"/>
+                    </columns>
 
-            </HBox>
+                </TableView>
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Button text="Remove Selected Material" onAction="#removeMaterialUsage" styleClass="btn-danger"/>
+                    <Label text="Actions" styleClass="form-label"/>
+                </HBox>
+
+            </VBox>
+
+            <!-- ================= EXISTING PRODUCTION RECORDS ================= -->
+            <VBox spacing="16" styleClass="card">
+
+                <Label text="Existing Production Records" styleClass="page-title"/>
+
+                <HBox spacing="12">
+                    <Button text="Add Production" onAction="#saveProduction" styleClass="btn-success"/>
+                    <Button text="Update Selected" onAction="#updateProduction" styleClass="btn-primary"/>
+                    <Button text="Delete Selected" onAction="#deleteProduction" styleClass="btn-danger"/>
+                    <Button text="Reset Form" onAction="#clearForm" styleClass="btn-neutral"/>
+                </HBox>
+
+                <TableView fx:id="tableProduction" prefHeight="360" minHeight="240" VBox.vgrow="ALWAYS"
+                           styleClass="table-view, table-view-light">
+
+                    <columns>
+
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colProduct" text="Product" prefWidth="130"/>
+                        <TableColumn fx:id="colProdDate" text="Production Date" prefWidth="110"/>
+                        <TableColumn fx:id="colExpDate" text="Expiry Date" prefWidth="100"/>
+                        <TableColumn fx:id="colProduced" text="Produced" prefWidth="80"/>
+                        <TableColumn fx:id="colSold" text="Sold" prefWidth="70"/>
+                        <TableColumn fx:id="colPrice" text="Selling Price" prefWidth="100"/>
+                        <TableColumn fx:id="colRevenue" text="Revenue" prefWidth="110"/>
+                        <TableColumn fx:id="colNote" text="Note" prefWidth="140"/>
+                        <TableColumn fx:id="colActions" text="Actions" prefWidth="90" sortable="false"/>
+
+                    </columns>
+
+                </TableView>
+
+            </VBox>
 
         </VBox>
 
-    </top>
+    </content>
 
-    <center>
-
-        <TableView fx:id="tableProduction">
-
-            <columns>
-
-                <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-                <TableColumn fx:id="colProduct" text="Product" prefWidth="140"/>
-                <TableColumn fx:id="colProdDate" text="Production Date" prefWidth="100"/>
-                <TableColumn fx:id="colExpDate" text="Expiry Date" prefWidth="110"/>
-                <TableColumn fx:id="colProduced" text="Produced" prefWidth="90"/>
-                <TableColumn fx:id="colSold" text="Sold" prefWidth="80"/>
-                <TableColumn fx:id="colPrice" text="Selling Price" prefWidth="100"/>
-                <TableColumn fx:id="colRevenue" text="Revenue" prefWidth="110"/>
-                <TableColumn fx:id="colNote" text="Note" prefWidth="140"/>
-
-            </columns>
-
-        </TableView>
-
-    </center>
-
-    <padding>
-        <Insets top="20" right="20" left="20" bottom="20"/>
-    </padding>
-
-</BorderPane>
+</ScrollPane>

@@ -1,0 +1,139 @@
+/* =========================
+   TOP BAR
+========================= */
+
+.topbar{
+
+    -fx-background-color:white;
+    -fx-background-image: url("/images/header_bg.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: right center;
+    -fx-background-size: cover;
+
+    -fx-border-color:-fx-divider;
+    -fx-border-width:0 0 1 0;
+}
+
+.username{
+
+    -fx-font-size:15px;
+
+    -fx-font-weight:bold;
+
+    -fx-text-fill:-fx-primary-dark;
+}
+
+/* =========================
+   NOTIFICATION BELL
+========================= */
+
+.icon-btn{
+
+    -fx-background-color:transparent;
+
+    -fx-font-size:20px;
+
+    -fx-padding:6;
+
+    -fx-background-radius:50%;
+
+    -fx-cursor:hand;
+}
+
+.icon-btn:hover{
+
+    -fx-background-color:-fx-primary-bg;
+}
+
+.notif-badge{
+
+    -fx-background-color:-fx-danger;
+
+    -fx-text-fill:white;
+
+    -fx-font-size:10px;
+
+    -fx-font-weight:bold;
+
+    -fx-background-radius:20;
+
+    -fx-padding:1 5 1 5;
+
+    -fx-min-width:16;
+
+    -fx-alignment:center;
+}
+
+/* =========================
+   USER AVATAR DROPDOWN
+========================= */
+
+.user-menu{
+
+    -fx-background-color:transparent;
+
+    -fx-text-fill:-fx-primary-dark;
+
+    -fx-font-size:14px;
+
+    -fx-font-weight:bold;
+
+    -fx-background-radius:20;
+
+    -fx-padding:4 12 4 4;
+}
+
+.user-menu:hover,
+.user-menu:showing{
+
+    -fx-background-color:-fx-primary-bg;
+}
+
+.user-menu .arrow{
+
+    -fx-background-color:-fx-primary-dark;
+}
+
+.user-avatar{
+
+    -fx-background-color:-fx-primary;
+
+    -fx-text-fill:white;
+
+    -fx-font-size:14px;
+
+    -fx-background-radius:50%;
+
+    -fx-min-width:30;
+
+    -fx-min-height:30;
+
+    -fx-max-width:30;
+
+    -fx-max-height:30;
+
+    -fx-alignment:center;
+}
+
+.context-menu{
+
+    -fx-background-color:white;
+
+    -fx-background-radius:10;
+
+    -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.15), 12, 0, 0, 4);
+}
+
+.menu-item .label{
+
+    -fx-text-fill:#333333;
+
+    -fx-font-size:13px;
+}
+
+.menu-item:focused{
+
+    -fx-background-color:-fx-primary-bg;
+
+    -fx-background-radius:8;
+}

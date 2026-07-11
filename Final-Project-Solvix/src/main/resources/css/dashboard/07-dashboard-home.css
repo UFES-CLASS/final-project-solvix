@@ -1,0 +1,308 @@
+/* =========================
+   DASHBOARD HOME
+========================= */
+
+.panel-title{
+
+    -fx-font-size:16px;
+
+    -fx-font-weight:bold;
+
+    -fx-text-fill:#222222;
+}
+
+.chart-header-icon{
+
+    -fx-font-size:14px;
+
+    -fx-text-fill:#999999;
+
+    -fx-padding:0 0 0 10;
+}
+
+/* ---- Date range selector ---- */
+
+.date-range-label{
+
+    -fx-font-size:13px;
+
+    -fx-text-fill:#666666;
+
+    -fx-padding:0 4 0 0;
+}
+
+.date-range-icon{
+
+    -fx-font-size:13px;
+}
+
+.date-range-group{
+
+    -fx-background-color:-fx-surface-hover-2;
+
+    -fx-background-radius:10;
+
+    -fx-padding:3;
+}
+
+.date-range-btn{
+
+    -fx-background-color:transparent;
+
+    -fx-background-radius:8;
+
+    -fx-text-fill:#555555;
+
+    -fx-font-size:13px;
+
+    -fx-padding:6 14;
+
+    -fx-cursor:hand;
+}
+
+.date-range-btn:hover{
+
+    -fx-background-color:-fx-divider-hover;
+}
+
+.date-range-btn:selected{
+
+    -fx-background-color:white;
+
+    -fx-text-fill:-fx-primary-dark;
+
+    -fx-font-weight:bold;
+
+    -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.10),6,0,0,1);
+}
+
+/* ---- Highlighted stat card (Active Production) ---- */
+
+.card-highlight{
+
+    -fx-background-color:linear-gradient(to bottom right, -fx-violet, -fx-violet-dark);
+
+    -fx-border-color:transparent;
+}
+
+.card-title-white{
+
+    -fx-text-fill:rgba(255,255,255,0.85);
+}
+
+.card-value-white{
+
+    -fx-text-fill:white;
+}
+
+.card-corner-icon{
+
+    -fx-font-size:16px;
+
+    -fx-text-fill:rgba(255,255,255,0.85);
+}
+
+.card-corner-icon-green{
+
+    -fx-font-size:15px;
+
+    -fx-text-fill:-fx-primary;
+}
+
+/* ---- Charts ---- */
+
+.chart-flow.chart{
+
+    -fx-padding:0;
+}
+
+.chart-flow .default-color0.chart-series-area-line{
+
+    -fx-stroke:-fx-primary;
+
+    -fx-stroke-width:2.5px;
+}
+
+.chart-flow .default-color0.chart-series-area-fill{
+
+    -fx-fill:rgba(18,128,90,0.12);
+}
+
+.chart-flow .default-color0.chart-area-symbol{
+
+    -fx-background-color:-fx-primary, white;
+
+    -fx-background-insets:0, 2;
+
+    -fx-background-radius:5px;
+
+    -fx-padding:5px;
+}
+
+.chart-flow .default-color1.chart-series-area-line{
+
+    -fx-stroke:-fx-accent;
+
+    -fx-stroke-width:2.5px;
+}
+
+.chart-flow .default-color1.chart-series-area-fill{
+
+    -fx-fill:rgba(255,122,46,0.10);
+}
+
+.chart-flow .default-color1.chart-area-symbol{
+
+    -fx-background-color:-fx-accent, white;
+
+    -fx-background-insets:0, 2;
+
+    -fx-background-radius:5px;
+
+    -fx-padding:5px;
+}
+
+.chart-flow .chart-legend-item-symbol.default-color0{
+
+    -fx-background-color:-fx-primary;
+
+    -fx-background-radius:5px;
+}
+
+.chart-flow .chart-legend-item-symbol.default-color1{
+
+    -fx-background-color:-fx-accent;
+
+    -fx-background-radius:5px;
+}
+
+.chart-consumed .default-color0.chart-bar{
+
+    -fx-bar-fill:-fx-teal;
+
+    -fx-background-radius:4 4 0 0;
+}
+
+.chart-flow .chart-plot-background,
+.chart-consumed .chart-plot-background{
+
+    -fx-background-color:transparent;
+}
+
+.chart-flow .axis,
+.chart-consumed .axis{
+
+    -fx-tick-label-fill:#999999;
+
+    -fx-font-size:11px;
+}
+
+.empty-state-label{
+
+    -fx-text-fill:#999999;
+
+    -fx-font-size:13px;
+}
+
+/* ---- Inner scroll panes ---- */
+
+.inner-scroll,
+.inner-scroll .viewport{
+
+    -fx-background-color:transparent;
+
+    -fx-border-color:transparent;
+}
+
+.inner-scroll > .scroll-bar:vertical{
+
+    -fx-pref-width:8px;
+}
+
+/* ---- Notifications / low stock cards ---- */
+
+.notification-card{
+
+    -fx-background-color:-fx-surface-alt-2;
+
+    -fx-background-radius:14;
+
+    -fx-border-color:-fx-border-light;
+
+    -fx-border-radius:14;
+
+    -fx-padding:16;
+}
+
+.notification-item-title{
+
+    -fx-font-size:16px;
+
+    -fx-font-weight:bold;
+
+    -fx-text-fill:#222222;
+}
+
+.notification-deficit-badge{
+
+    -fx-font-size:14px;
+
+    -fx-font-weight:bold;
+
+    -fx-text-fill:-fx-danger;
+}
+
+.notification-sub-label{
+
+    -fx-font-size:12.5px;
+
+    -fx-text-fill:#666666;
+}
+
+.notification-anomaly-label{
+
+    -fx-font-size:12.5px;
+
+    -fx-font-weight:bold;
+
+    -fx-text-fill:-fx-danger;
+}
+
+/* ---- Recent activity log ---- */
+
+.activity-row{
+
+    -fx-padding:8 4;
+}
+
+.activity-icon{
+
+    -fx-font-size:14px;
+
+    -fx-min-width:22px;
+
+    -fx-alignment:center;
+}
+
+.activity-actor{
+
+    -fx-font-size:13px;
+
+    -fx-font-weight:bold;
+
+    -fx-text-fill:#222222;
+}
+
+.activity-action{
+
+    -fx-font-size:13px;
+
+    -fx-text-fill:#444444;
+}
+
+.activity-time{
+
+    -fx-font-size:12px;
+
+    -fx-text-fill:#999999;
+}

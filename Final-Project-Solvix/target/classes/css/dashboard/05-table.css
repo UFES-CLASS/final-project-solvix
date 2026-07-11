@@ -1,0 +1,142 @@
+/* =========================
+   TABLEVIEW
+========================= */
+
+.table-view{
+
+    -fx-background-radius:15;
+
+    -fx-border-radius:15;
+
+    -fx-border-color:-fx-border;
+}
+
+.table-view .column-header{
+
+    -fx-background-color:-fx-primary;
+}
+
+.table-view .column-header-background{
+
+    -fx-background-color:-fx-primary;
+}
+
+.table-view .column-header .label{
+
+    -fx-text-fill:white;
+
+    -fx-font-weight:bold;
+}
+
+.table-row-cell{
+
+    -fx-background-color:white;
+
+    -fx-border-color:transparent transparent #EEEEEE transparent;
+}
+
+.table-row-cell:hover{
+
+    -fx-background-color:-fx-accent-bg-pale;
+}
+
+.table-row-cell:selected{
+
+    -fx-background-color:-fx-accent-bg;
+}
+
+/* ---- Light-header table variant (Material page) ---- */
+
+.table-view-light .column-header,
+.table-view-light .column-header-background{
+
+    -fx-background-color:-fx-surface-alt;
+}
+
+.table-view-light .column-header .label{
+
+    -fx-text-fill:#222222;
+
+    -fx-font-weight:bold;
+}
+
+.table-view-light .column-header{
+
+    -fx-border-color:transparent transparent -fx-border transparent;
+}
+
+.row-low-stock{
+
+    -fx-background-color:-fx-danger-row-bg;
+}
+
+.row-low-stock:hover{
+
+    -fx-background-color:-fx-danger-row-bg-hover;
+}
+
+.stock-cell-warning{
+
+    -fx-text-fill:-fx-danger;
+
+    -fx-font-weight:bold;
+}
+
+/* =========================
+   PRODUCT PAGE - STATUS DOT (TABLE)
+========================= */
+
+.status-dot-active{
+
+    -fx-background-color:-fx-primary;
+
+    -fx-text-fill:white;
+
+    -fx-font-size:11px;
+
+    -fx-font-weight:bold;
+
+    -fx-background-radius:50%;
+
+    -fx-min-width:22;
+
+    -fx-min-height:22;
+
+    -fx-max-width:22;
+
+    -fx-max-height:22;
+
+    -fx-alignment:center;
+}
+
+.status-dot-inactive{
+
+    -fx-background-color:-fx-track-off;
+
+    -fx-text-fill:white;
+
+    -fx-font-size:11px;
+
+    -fx-font-weight:bold;
+
+    -fx-background-radius:50%;
+
+    -fx-min-width:22;
+
+    -fx-min-height:22;
+
+    -fx-max-width:22;
+
+    -fx-max-height:22;
+
+    -fx-alignment:center;
+}
+
+/* =========================
+   PRODUCT PAGE - TABLE THUMBNAIL
+========================= */
+
+.table-thumb{
+
+    -fx-background-radius:8;
+}

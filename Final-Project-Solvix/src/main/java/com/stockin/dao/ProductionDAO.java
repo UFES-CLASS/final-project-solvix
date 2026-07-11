@@ -102,7 +102,7 @@ public class ProductionDAO {
 
         List<Production> list = new ArrayList<>();
 
-        String sql = "SELECT p.*, pr.productName FROM production p "
+        String sql = "SELECT p.*, pr.productName, pr.productImage FROM production p "
                 + "JOIN products pr ON p.productId = pr.productId "
                 + "ORDER BY p.productionDate DESC, p.productionId DESC";
 
@@ -132,7 +132,7 @@ public class ProductionDAO {
         List<Production> list = new ArrayList<>();
 
         StringBuilder sql = new StringBuilder(
-                "SELECT p.*, pr.productName FROM production p "
+                "SELECT p.*, pr.productName, pr.productImage FROM production p "
                         + "JOIN products pr ON p.productId = pr.productId WHERE 1=1 ");
 
         if (startDate != null) {
@@ -244,6 +244,36 @@ public class ProductionDAO {
 
     }
 
+    /**
+     * Menghitung jumlah batch produksi yang masih "aktif": stok hasil
+     * produksinya belum terjual habis, dan belum lewat tanggal kedaluwarsa.
+     * Dipakai oleh kartu "Active Production" di Dashboard.
+     */
+    public int countActiveBatches() {
+
+        String sql = "SELECT COUNT(*) AS total FROM production "
+                + "WHERE quantitySold < quantityProduced "
+                + "AND (expiredDate IS NULL OR expiredDate = '' OR expiredDate >= ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, java.time.LocalDate.now().toString());
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
     private Production mapRow(ResultSet rs) throws Exception {
 
         Production production = new Production();
@@ -257,6 +287,7 @@ public class ProductionDAO {
         production.setSellingPrice(rs.getDouble("sellingPrice"));
         production.setNote(rs.getString("note"));
         production.setProductName(rs.getString("productName"));
+        production.setProductImage(rs.getString("productImage"));
 
         return production;
 

@@ -215,6 +215,63 @@ public class IncomingMaterialDAO {
 
     }
 
+    /**
+     * Harga satuan terbaru (paling akhir dicatat) untuk sebuah material.
+     * Dipakai Dashboard untuk menghitung "Stock Asset Value".
+     * Mengembalikan 0 kalau material tersebut belum pernah punya
+     * catatan bahan masuk sama sekali.
+     */
+    public double getLatestUnitPrice(int materialId) {
+
+        String sql = "SELECT unitPrice FROM incoming_materials WHERE materialId = ? "
+                + "ORDER BY incomingDate DESC, incomingId DESC LIMIT 1";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, materialId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("unitPrice");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
+    /**
+     * Total kuantitas semua bahan masuk pada satu tanggal tertentu.
+     * Dipakai untuk menyusun grafik "Material Incoming vs Outgoing".
+     */
+    public int getTotalQuantityByDate(String dateIso) {
+
+        String sql = "SELECT COALESCE(SUM(quantity),0) AS total FROM incoming_materials WHERE incomingDate = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, dateIso);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
     private IncomingMaterial mapRow(ResultSet rs) throws Exception {
 
         IncomingMaterial incoming = new IncomingMaterial();

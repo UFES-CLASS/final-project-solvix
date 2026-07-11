@@ -1,0 +1,40 @@
+/* ===========================
+        RIGHT PANEL
+=========================== */
+
+.right-pane{
+
+    -fx-background-color:white;
+
+    -fx-background-image: url("/images/RightPage.png");
+
+    -fx-background-size: cover;
+
+    -fx-background-position: center center;
+
+    -fx-background-repeat: no-repeat;
+
+}
+
+
+.welcome-title{
+
+    -fx-font-size:36px;
+    -fx-font-weight:bold;
+    -fx-text-fill:-fx-primary-dark;
+
+}
+
+.welcome-sub{
+
+    -fx-font-size:17px;
+    -fx-text-fill:#777777;
+
+}
+
+.field-label{
+
+    -fx-font-size:14px;
+    -fx-font-weight:bold;
+
+}

@@ -1,0 +1,80 @@
+/* =========================================================
+   DESIGN TOKENS / COLOR PALETTE — STOCKIN DASHBOARD
+   ---------------------------------------------------------
+   Palet baru: emerald + teal sebagai warna utama (masih senada
+   dengan identitas "fresh & food" sebelumnya, tapi lebih jenuh
+   dan hidup), dipadukan dengan tangerine sebagai aksen hangat,
+   serta violet/amber/rose sebagai warna variasi untuk chart &
+   badge supaya dashboard terasa lebih berwarna dan modern.
+   Semua nilai lain (ukuran, padding, radius, layout) TIDAK
+   diubah — hanya warna.
+========================================================= */
+
+.root {
+
+    /* ---- Brand / Primary (emerald-teal) ---- */
+    -fx-primary: #12805A;
+    -fx-primary-dark: #0B4D3B;
+    -fx-primary-light: #2FAE7A;
+    -fx-primary-bg: #EAF7F0;
+    -fx-primary-bg-soft: #DFF3E2;
+    -fx-primary-bg-pale: #D7ECDF;
+
+    /* ---- Accent (tangerine) ---- */
+    -fx-accent: #FF7A2E;
+    -fx-accent-dark: #E85D04;
+    -fx-accent-bg: #FFE9D9;
+    -fx-accent-bg-pale: #FFF3EC;
+    -fx-accent-bg-select: #FCE0BE;
+
+    /* ---- Secondary accents (dipakai untuk chart & badge) ---- */
+    -fx-teal: #14B8A6;
+    -fx-teal-dark: #0D9488;
+    -fx-violet: #8B5CF6;
+    -fx-violet-dark: #6D5DD3;
+    -fx-rose: #F43F5E;
+    -fx-amber: #FBBF24;
+
+    /* ---- Status ---- */
+    -fx-danger: #EF4444;
+    -fx-danger-dark: #DC2626;
+    -fx-danger-bg: #FDECEC;
+    -fx-danger-bg-soft: #FFDADA;
+    -fx-danger-row-bg: #FBE1E1;
+    -fx-danger-row-bg-hover: #F7D2D2;
+    -fx-danger-border: #F3C6C6;
+
+    -fx-neutral: #8C8C8C;
+    -fx-neutral-dark: #707070;
+
+    /* ---- Surfaces ---- */
+    -fx-bg: #F5F8F6;
+    -fx-surface: white;
+    -fx-surface-alt: #FAFAF7;
+    -fx-surface-alt-2: #FCFBF7;
+    -fx-surface-hover: #F3F3EE;
+    -fx-surface-hover-2: #F1F1EC;
+
+    /* ---- Borders ---- */
+    -fx-border: #ECECEC;
+    -fx-border-soft: #D9D9D5;
+    -fx-border-input: #D9D9D9;
+    -fx-border-light: #EFEFEA;
+    -fx-divider: #E7E7E7;
+    -fx-divider-hover: #E2E2DC;
+    -fx-track-off: #C7C7C7;
+
+    /* ---- Text ---- */
+    -fx-text-dark: #222222;
+    -fx-text-strong: #333333;
+    -fx-text-body: #444444;
+    -fx-text-secondary: #555555;
+    -fx-text-muted: #666666;
+    -fx-text-faint: #999999;
+    -fx-text-faint-2: #8A8A85;
+    -fx-text-placeholder: #AAAAAA;
+    -fx-text-disabled: #888888;
+
+    -fx-background-color: -fx-bg;
+    -fx-font-family: "Segoe UI";
+}

@@ -1,5 +1,6 @@
 package com.stockin.controller;
 
+import com.stockin.dao.ActivityLogDAO;
 import com.stockin.dao.UserDAO;
 import com.stockin.model.User;
 import com.stockin.util.Session;
@@ -30,6 +31,7 @@ public class LoginController {
     private Label lblStatus;
 
     private final UserDAO userDAO = new UserDAO();
+    private final ActivityLogDAO activityLogDAO = new ActivityLogDAO();
 
     @FXML
     public void initialize() {
@@ -61,6 +63,8 @@ public class LoginController {
         }
 
         Session.setCurrentUser(user);
+
+        activityLogDAO.log(Session.getCurrentUserLabel(), "Logged in", "LOGIN");
 
         try {
 

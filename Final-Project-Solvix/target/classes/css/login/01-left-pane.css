@@ -1,0 +1,70 @@
+/* ===========================
+        LEFT PANEL
+=========================== */
+
+.left-pane{
+
+    -fx-background-color: linear-gradient(
+        to bottom right,
+        -fx-primary-dark,
+        -fx-primary,
+        -fx-teal
+    );
+
+    -fx-background-image: url("/images/LeftPage.png");
+
+    -fx-background-size: cover;
+
+    -fx-background-position: center bottom;
+
+    -fx-background-repeat: no-repeat;
+
+}
+
+.logo-title{
+
+    -fx-font-family: "Permanent Marker", "Segoe Script", "Brush Script MT", cursive;
+    -fx-font-size:56px;
+    -fx-text-fill:white;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 4, 0.2, 1, 2);
+
+}
+
+.logo-subtitle{
+
+    -fx-font-family: "Caveat", "Segoe Script", cursive;
+    -fx-font-size:24px;
+    -fx-font-style:italic;
+    -fx-text-fill:#F3D2B4;
+
+}
+
+.divider{
+
+    -fx-pref-width:90px;
+    -fx-pref-height:3px;
+    -fx-background-color:-fx-accent;
+    -fx-background-radius:2;
+
+}
+
+.tagline-box{
+
+    -fx-padding: 6 0 0 0;
+
+}
+
+.tagline{
+
+    -fx-font-size:15px;
+    -fx-text-fill:white;
+
+}
+
+.dot{
+
+    -fx-font-size:15px;
+    -fx-font-weight:bold;
+    -fx-text-fill:-fx-accent;
+
+}

@@ -30,4 +30,21 @@ public class Session {
         currentUser = null;
     }
 
+    /**
+     * Nama user yang sedang login dalam format Kapital-di-awal, contoh
+     * "owner" -> "Owner". Dipakai sebagai label aktor pada Recent Activity
+     * Log di Dashboard. Mengembalikan "User" kalau tidak ada sesi aktif.
+     */
+    public static String getCurrentUserLabel() {
+
+        if (currentUser == null || currentUser.getUsername() == null || currentUser.getUsername().isEmpty()) {
+            return "User";
+        }
+
+        String username = currentUser.getUsername();
+
+        return Character.toUpperCase(username.charAt(0)) + username.substring(1).toLowerCase();
+
+    }
+
 }

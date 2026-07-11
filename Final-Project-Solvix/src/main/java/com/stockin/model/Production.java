@@ -12,6 +12,7 @@ public class Production {
     private String note;
 
     private String productName;
+    private String productImage;
 
     public Production() {
     }
@@ -102,6 +103,14 @@ public class Production {
 
     public double getRevenue() {
         return quantitySold * sellingPrice;
+    }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 
 }

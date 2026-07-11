@@ -1,26 +1,35 @@
 package com.stockin.controller;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import com.stockin.dao.ActivityLogDAO;
 import com.stockin.dao.MaterialDAO;
 import com.stockin.dao.NotificationDAO;
 import com.stockin.dao.ProductDAO;
 import com.stockin.dao.ProductionDAO;
+import com.stockin.dao.ProductionMaterialDAO;
 import com.stockin.model.Material;
 import com.stockin.model.MaterialUsageItem;
 import com.stockin.model.Product;
 import com.stockin.model.Production;
 import com.stockin.util.AlertUtil;
+import com.stockin.util.Session;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 
 public class ProductionController {
 
@@ -43,7 +52,7 @@ public class ProductionController {
     private TextField txtQuantitySold;
 
     @FXML
-    private TextField txtNote;
+    private TextArea txtNote;
 
     @FXML
     private ComboBox<Material> cmbMaterialUsed;
@@ -59,6 +68,9 @@ public class ProductionController {
 
     @FXML
     private TableColumn<MaterialUsageItem, String> colMaterialUsedQty;
+
+    @FXML
+    private TableColumn<MaterialUsageItem, String> colMaterialUsedUnit;
 
     @FXML
     private TableView<Production> tableProduction;
@@ -90,15 +102,25 @@ public class ProductionController {
     @FXML
     private TableColumn<Production, String> colNote;
 
+    @FXML
+    private TableColumn<Production, Void> colActions;
+
     private final ProductionDAO productionDAO = new ProductionDAO();
     private final ProductDAO productDAO = new ProductDAO();
     private final MaterialDAO materialDAO = new MaterialDAO();
     private final NotificationDAO notificationDAO = new NotificationDAO();
+    private final ProductionMaterialDAO productionMaterialDAO = new ProductionMaterialDAO();
+    private final ActivityLogDAO activityLogDAO = new ActivityLogDAO();
 
     private final ObservableList<Production> productionList = FXCollections.observableArrayList();
     private final ObservableList<MaterialUsageItem> materialUsageList = FXCollections.observableArrayList();
 
     private Production selectedProduction;
+
+    // true saat form sedang menampilkan data lama (mode lihat/update) -
+    // dalam mode ini daftar bahan hanya untuk ditampilkan (riwayat),
+    // tidak untuk diedit, karena tombol Update belum menyesuaikan ulang stok.
+    private boolean viewingExistingUsage = false;
 
     @FXML
     public void initialize() {
@@ -116,8 +138,11 @@ public class ProductionController {
         tableProduction.setItems(productionList);
 
         colMaterialUsedName.setCellValueFactory(new PropertyValueFactory<>("materialName"));
-        colMaterialUsedQty.setCellValueFactory(new PropertyValueFactory<>("quantityDisplay"));
+        colMaterialUsedQty.setCellValueFactory(new PropertyValueFactory<>("quantityUsed"));
+        colMaterialUsedUnit.setCellValueFactory(new PropertyValueFactory<>("unit"));
         tableMaterialUsed.setItems(materialUsageList);
+
+        setupActionsColumn();
 
         cmbProduct.setItems(FXCollections.observableArrayList(productDAO.getAllProducts()));
         cmbMaterialUsed.setItems(FXCollections.observableArrayList(materialDAO.getAllMaterials()));
@@ -146,6 +171,44 @@ public class ProductionController {
         productionList.setAll(productionDAO.getAllProduction());
     }
 
+    private void setupActionsColumn() {
+
+        colActions.setCellFactory(col -> new TableCell<Production, Void>() {
+
+            private final Button btnEdit = new Button("\u270E");
+            private final Button btnDelete = new Button("\uD83D\uDDD1");
+            private final HBox box = new HBox(6, btnEdit, btnDelete);
+
+            {
+                btnEdit.getStyleClass().addAll("table-action-icon-btn", "table-action-icon-edit");
+                btnDelete.getStyleClass().addAll("table-action-icon-btn", "table-action-icon-delete");
+                box.setAlignment(Pos.CENTER);
+
+                btnEdit.setOnAction(e -> {
+                    Production production = getTableView().getItems().get(getIndex());
+                    selectedProduction = production;
+                    fillForm(production);
+                    tableProduction.getSelectionModel().select(production);
+                });
+
+                btnDelete.setOnAction(e -> {
+                    Production production = getTableView().getItems().get(getIndex());
+                    selectedProduction = production;
+                    tableProduction.getSelectionModel().select(production);
+                    deleteProduction();
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : box);
+            }
+
+        });
+
+    }
+
     private void fillForm(Production production) {
 
         for (Product product : cmbProduct.getItems()) {
@@ -168,10 +231,14 @@ public class ProductionController {
         txtQuantitySold.setText(String.valueOf(production.getQuantitySold()));
         txtNote.setText(production.getNote());
 
-        // Field bahan digunakan hanya berlaku saat input baru
+        // Untuk produksi yang sudah ada, tampilkan riwayat bahan yang benar-benar
+        // tersimpan di database (bukan form input baru). Daftar ini hanya untuk
+        // dilihat karena tombol Update belum menyesuaikan ulang stok bahan.
         cmbMaterialUsed.setValue(null);
         txtMaterialQtyUsed.clear();
-        materialUsageList.clear();
+        viewingExistingUsage = true;
+        materialUsageList.setAll(
+                productionMaterialDAO.getUsageByProduction(production.getProductionId()));
 
     }
 
@@ -182,6 +249,16 @@ public class ProductionController {
 
         if (product == null || dateProduction.getValue() == null) {
             AlertUtil.warning("Data is incomplete", "Product and production date are required.");
+            return;
+        }
+
+        if (viewingExistingUsage) {
+            AlertUtil.warning("Invalid action",
+                    "You are viewing an existing production record. Press Reset to add a new one.");
+            return;
+        }
+
+        if (!hasSufficientStock()) {
             return;
         }
 
@@ -203,7 +280,10 @@ public class ProductionController {
                 return;
             }
 
-            applyMaterialUsage();
+            applyMaterialUsage(production.getProductionId());
+
+            activityLogDAO.log(Session.getCurrentUserLabel(),
+                    "Started Production Run #" + production.getProductionId(), "PRODUCTION");
 
             loadTable();
             clearForm();
@@ -212,6 +292,35 @@ public class ProductionController {
         } catch (NumberFormatException e) {
             AlertUtil.warning("Data is invalid", "Quantity and price must be valid numbers.");
         }
+
+    }
+
+    /**
+     * Mengecek apakah stok setiap bahan pada materialUsageList masih cukup
+     * sebelum benar-benar dikurangi. Mencegah stok menjadi negatif.
+     */
+    private boolean hasSufficientStock() {
+
+        for (MaterialUsageItem item : materialUsageList) {
+
+            Material current = materialDAO.getMaterialById(item.getMaterialId());
+
+            if (current == null) {
+                AlertUtil.error("Failed", "Material \"" + item.getMaterialName() + "\" was not found.");
+                return false;
+            }
+
+            if (current.getStock() < item.getQuantityUsed()) {
+                AlertUtil.warning("Insufficient stock",
+                        "Stock for \"" + item.getMaterialName() + "\" is only " + current.getStock()
+                                + " " + current.getUnit() + ", but " + item.getQuantityUsed()
+                                + " " + current.getUnit() + " is needed.");
+                return false;
+            }
+
+        }
+
+        return true;
 
     }
 
@@ -264,19 +373,35 @@ public class ProductionController {
             return;
         }
 
-        boolean confirm = AlertUtil.confirm("Confirm Delete", "Delete this production record?");
+        boolean confirm = AlertUtil.confirm("Confirm Delete",
+                "Delete this production record? Materials used will be returned to stock.");
 
         if (!confirm) {
             return;
         }
 
-        boolean success = productionDAO.deleteProduction(selectedProduction.getProductionId());
+        int productionId = selectedProduction.getProductionId();
+
+        // Kembalikan stok bahan yang dulu dipakai batch ini sebelum recordnya dihapus,
+        // supaya stok material tetap konsisten (tidak "hilang" begitu saja).
+        List<MaterialUsageItem> usedMaterials = productionMaterialDAO.getUsageByProduction(productionId);
+
+        for (MaterialUsageItem item : usedMaterials) {
+            materialDAO.updateStock(item.getMaterialId(), item.getQuantityUsed());
+        }
+
+        boolean success = productionDAO.deleteProduction(productionId);
 
         if (success) {
+            productionMaterialDAO.deleteByProduction(productionId);
             loadTable();
             clearForm();
             AlertUtil.info("Success", "Production data deleted successfully.");
         } else {
+            // Rollback pengembalian stok kalau ternyata production gagal dihapus
+            for (MaterialUsageItem item : usedMaterials) {
+                materialDAO.updateStock(item.getMaterialId(), -item.getQuantityUsed());
+            }
             AlertUtil.error("Failed", "Failed to delete production data.");
         }
 
@@ -297,12 +422,20 @@ public class ProductionController {
         txtNote.clear();
         cmbMaterialUsed.setValue(null);
         txtMaterialQtyUsed.clear();
+        viewingExistingUsage = false;
         materialUsageList.clear();
 
     }
 
     @FXML
     private void addMaterialUsage() {
+
+        if (viewingExistingUsage) {
+            AlertUtil.warning("Invalid action",
+                    "This list shows materials already used by an existing production record. "
+                            + "Press Reset to start a new production entry.");
+            return;
+        }
 
         Material material = cmbMaterialUsed.getValue();
         String qtyText = txtMaterialQtyUsed.getText().trim();
@@ -369,6 +502,13 @@ public class ProductionController {
     @FXML
     private void removeMaterialUsage() {
 
+        if (viewingExistingUsage) {
+            AlertUtil.warning("Invalid action",
+                    "This list shows materials already used by an existing production record. "
+                            + "Press Reset to start a new production entry.");
+            return;
+        }
+
         MaterialUsageItem selected = tableMaterialUsed.getSelectionModel().getSelectedItem();
 
         if (selected == null) {
@@ -380,13 +520,19 @@ public class ProductionController {
 
     }
 
-    private void applyMaterialUsage() {
+    /**
+     * Menyimpan setiap baris bahan yang dipakai ke tabel production_materials
+     * (agar riwayatnya tidak hilang) dan mengurangi stok masing-masing bahan.
+     */
+    private void applyMaterialUsage(int productionId) {
 
         if (materialUsageList.isEmpty()) {
             return;
         }
 
         for (MaterialUsageItem item : materialUsageList) {
+
+            productionMaterialDAO.insertUsage(productionId, item.getMaterialId(), item.getQuantityUsed());
 
             materialDAO.updateStock(item.getMaterialId(), -item.getQuantityUsed());
 

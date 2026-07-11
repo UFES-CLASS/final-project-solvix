@@ -1,0 +1,162 @@
+/* =========================
+   FINANCIAL REPORT PAGE
+========================= */
+
+.report-subtitle{
+    -fx-font-size:12.5px;
+    -fx-text-fill:-fx-text-faint-2;
+}
+
+.report-date-label{
+    -fx-font-size:13px;
+    -fx-font-weight:bold;
+    -fx-text-fill:#444444;
+}
+
+/* ---- Stat cards ---- */
+
+.stat-card{
+    -fx-background-radius:16;
+    -fx-border-radius:16;
+    -fx-border-color:transparent;
+    -fx-padding:20 22;
+    -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.10),14,0,0,4);
+}
+
+.stat-card-produced{
+    -fx-background-color:linear-gradient(to bottom right, -fx-violet, -fx-violet-dark);
+}
+
+.stat-card-sold{
+    -fx-background-color:linear-gradient(to bottom right, #2DD4BF, -fx-teal-dark);
+}
+
+.stat-card-revenue{
+    -fx-background-color:linear-gradient(to bottom right, -fx-primary-light, -fx-primary);
+}
+
+.stat-card-title{
+    -fx-font-size:14px;
+    -fx-text-fill:rgba(255,255,255,0.9);
+}
+
+.stat-card-value{
+    -fx-font-size:30px;
+    -fx-font-weight:bold;
+    -fx-text-fill:white;
+}
+
+.stat-card-icon-box{
+    -fx-background-color:rgba(255,255,255,0.22);
+    -fx-background-radius:12;
+    -fx-min-width:46;
+    -fx-min-height:46;
+    -fx-max-width:46;
+    -fx-max-height:46;
+    -fx-alignment:center;
+    -fx-font-size:20px;
+}
+
+.stat-card-trend-icon{
+    -fx-font-size:15px;
+    -fx-text-fill:rgba(255,255,255,0.55);
+}
+
+/* ---- Charts panels ---- */
+
+.report-chart-title{
+    -fx-font-size:14px;
+    -fx-font-weight:bold;
+    -fx-text-fill:#333333;
+}
+
+.report-bar-chart .default-color0.chart-bar{ -fx-bar-fill:-fx-teal; -fx-background-radius:4 4 0 0; }
+.report-bar-chart .default-color1.chart-bar{ -fx-bar-fill:-fx-accent; -fx-background-radius:4 4 0 0; }
+.report-bar-chart .default-color2.chart-bar{ -fx-bar-fill:-fx-amber; -fx-background-radius:4 4 0 0; }
+.report-bar-chart .default-color3.chart-bar{ -fx-bar-fill:-fx-teal-dark; -fx-background-radius:4 4 0 0; }
+.report-bar-chart .default-color4.chart-bar{ -fx-bar-fill:-fx-violet; -fx-background-radius:4 4 0 0; }
+.report-bar-chart .default-color5.chart-bar{ -fx-bar-fill:-fx-rose; -fx-background-radius:4 4 0 0; }
+
+.report-bar-chart .chart-plot-background,
+.report-area-chart .chart-plot-background{
+    -fx-background-color:transparent;
+}
+
+.report-bar-chart .axis,
+.report-area-chart .axis{
+    -fx-tick-label-fill:#999999;
+    -fx-font-size:11px;
+}
+
+.report-bar-chart .chart-legend,
+.report-area-chart .chart-legend{
+    -fx-background-color:transparent;
+}
+
+.report-area-chart .default-color0.chart-series-area-line{
+    -fx-stroke:-fx-primary;
+    -fx-stroke-width:2.5px;
+}
+
+.report-area-chart .default-color0.chart-series-area-fill{
+    -fx-fill:linear-gradient(to bottom, rgba(18,128,90,0.35), rgba(18,128,90,0));
+}
+
+.report-area-chart .default-color0.chart-area-symbol{
+    -fx-background-color:-fx-primary, white;
+    -fx-background-insets:0, 2;
+    -fx-background-radius:5px;
+    -fx-padding:4px;
+}
+
+/* ---- Product list table ---- */
+
+.report-table .column-header,
+.report-table .column-header-background{
+    -fx-background-color:-fx-primary-bg;
+    -fx-background-radius:15 15 0 0;
+}
+
+.report-table .column-header .label{
+    -fx-text-fill:-fx-primary-dark;
+    -fx-font-weight:bold;
+    -fx-font-size:13px;
+}
+
+.report-table .table-row-cell{
+    -fx-background-color:white;
+    -fx-border-color:transparent transparent -fx-surface-hover-2 transparent;
+}
+
+.report-table .table-row-cell:odd{
+    -fx-background-color:-fx-surface-alt-2;
+}
+
+.report-table .table-row-cell:hover{
+    -fx-background-color:-fx-accent-bg-pale;
+}
+
+.report-table .table-row-cell:selected{
+    -fx-background-color:-fx-accent-bg-select;
+}
+
+.report-product-icon{
+    -fx-min-width:34;
+    -fx-min-height:34;
+    -fx-max-width:34;
+    -fx-max-height:34;
+    -fx-background-radius:17;
+    -fx-alignment:center;
+    -fx-font-size:15px;
+}
+
+.report-product-name{
+    -fx-font-size:13.5px;
+    -fx-text-fill:#222222;
+    -fx-font-weight:bold;
+}
+
+.report-revenue-cell{
+    -fx-font-weight:bold;
+    -fx-text-fill:#222222;
+}

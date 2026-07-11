@@ -2,6 +2,8 @@ package com.stockin.controller;
 
 import java.io.IOException;
 
+import com.stockin.dao.ActivityLogDAO;
+import com.stockin.dao.NotificationDAO;
 import com.stockin.model.User;
 import com.stockin.util.Session;
 
@@ -11,7 +13,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuButton;
+import javafx.scene.image.Image;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class DashboardController {
@@ -20,7 +26,22 @@ public class DashboardController {
     private StackPane contentArea;
 
     @FXML
-    private Label lblUser;
+    private VBox sidebarBox;
+
+    @FXML
+    private Button btnOpenSidebar;
+
+    @FXML
+    private Button btnCollapseSidebar;
+
+    @FXML
+    private MenuButton menuUser;
+
+    @FXML
+    private Button btnNotificationBell;
+
+    @FXML
+    private Label lblNotificationBadge;
 
     @FXML
     private Button btnDashboard;
@@ -38,10 +59,10 @@ public class DashboardController {
     private Button btnProduction;
 
     @FXML
-    private Button btnNotification;
-
-    @FXML
     private Button btnReport;
+
+    private final NotificationDAO notificationDAO = new NotificationDAO();
+    private final ActivityLogDAO activityLogDAO = new ActivityLogDAO();
 
     @FXML
     public void initialize() {
@@ -62,11 +83,28 @@ public class DashboardController {
             return;
         }
 
-        lblUser.setText(user.getUsername().toUpperCase() + " (" + user.getRole() + ")");
+        menuUser.setText(user.getUsername().toUpperCase() + " (" + user.getRole() + ")");
 
         boolean owner = user.isOwner();
         btnReport.setVisible(owner);
         btnReport.setManaged(owner);
+
+        refreshNotificationBadge();
+
+    }
+
+    /**
+     * Menampilkan jumlah notifikasi belum dibaca sebagai badge merah kecil
+     * di atas ikon lonceng. Badge disembunyikan total kalau tidak ada
+     * notifikasi yang belum dibaca.
+     */
+    private void refreshNotificationBadge() {
+
+        int unread = notificationDAO.countUnread();
+
+        lblNotificationBadge.setText(unread > 99 ? "99+" : String.valueOf(unread));
+        lblNotificationBadge.setVisible(unread > 0);
+        lblNotificationBadge.setManaged(unread > 0);
 
     }
 
@@ -74,19 +112,45 @@ public class DashboardController {
 
         try {
 
-            Parent root = FXMLLoader.load(
-                    getClass().getResource("/fxml/" + page));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + page));
+            Parent root = loader.load();
+
+            // Halaman Dashboard butuh referensi balik ke controller ini
+            // supaya tombol "Restock Now" bisa berpindah ke halaman
+            // Incoming Material.
+            Object pageController = loader.getController();
+            if (pageController instanceof DashboardHomeController) {
+                ((DashboardHomeController) pageController).setDashboardController(this);
+            }
 
             contentArea.getChildren().clear();
             contentArea.getChildren().add(root);
+
+            // Refresh badge setiap kali pindah halaman, supaya kalau user
+            // baru saja menandai notifikasi sebagai dibaca, badge-nya
+            // langsung ter-update tanpa perlu logout/login ulang.
+            refreshNotificationBadge();
 
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Berpindah ke halaman Incoming Material. Dipakai oleh tombol
+     * "Restock Now" pada panel Notifications di Dashboard.
+     */
+    public void goToIncoming() {
+        loadPage("IncomingMaterial.fxml");
+    }
+
     @FXML
     private void logout() {
+
+        User user = Session.getCurrentUser();
+        if (user != null) {
+            activityLogDAO.log("Logout", user.getRole() != null ? user.getRole().toUpperCase() : "", "LOGOUT");
+        }
 
         Session.clear();
 
@@ -104,6 +168,31 @@ public class DashboardController {
             stage.setMaximized(false);
             stage.centerOnScreen();
             stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    @FXML
+    private void openChangePassword() {
+
+        try {
+
+            FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/fxml/ChangePassword.fxml"));
+
+            Parent root = loader.load();
+
+            Stage dialog = new Stage();
+            dialog.setTitle("Change Password");
+            dialog.getIcons().add(new Image(getClass().getResourceAsStream("/images/stockin_icon.png")));
+            dialog.initModality(Modality.APPLICATION_MODAL);
+            dialog.initOwner(contentArea.getScene().getWindow());
+            dialog.setScene(new Scene(root));
+            dialog.setResizable(false);
+            dialog.showAndWait();
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -144,6 +233,24 @@ public class DashboardController {
     @FXML
     private void openReport() {
         loadPage("Report.fxml");
+    }
+
+    /**
+     * Menutup / membuka sidebar. Saat ditutup, sidebar disembunyikan total
+     * (visible + managed = false) supaya area konten melebar penuh, dan
+     * tombol hamburger kecil muncul di topbar untuk membukanya lagi.
+     */
+    @FXML
+    private void toggleSidebar() {
+
+        boolean currentlyShowing = sidebarBox.isVisible();
+
+        sidebarBox.setVisible(!currentlyShowing);
+        sidebarBox.setManaged(!currentlyShowing);
+
+        btnOpenSidebar.setVisible(currentlyShowing);
+        btnOpenSidebar.setManaged(currentlyShowing);
+
     }
 
 }

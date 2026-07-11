@@ -2,6 +2,7 @@ package com.stockin.dao;
 
 import com.stockin.config.DatabaseConnection;
 import com.stockin.model.User;
+import com.stockin.util.PasswordUtil;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,24 +12,33 @@ public class UserDAO {
 
     /**
      * Mengecek username, password, dan role terhadap tabel users.
-     * Mengembalikan objek User jika cocok dan akun aktif, atau null jika tidak.
+     * Password TIDAK dibandingkan lewat query SQL (karena kolomnya berisi
+     * hash, bukan plaintext) - query hanya mengambil user berdasarkan
+     * username+role+status aktif, lalu hash-nya diverifikasi di sisi Java
+     * memakai PasswordUtil. Mengembalikan objek User jika cocok, atau null
+     * jika tidak.
      */
     public User authenticate(String username, String password, String role) {
 
-        String sql = "SELECT * FROM users WHERE username = ? AND password = ? "
+        String sql = "SELECT * FROM users WHERE username = ? "
                 + "AND role = ? AND isActive = 1";
 
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
             ps.setString(1, username);
-            ps.setString(2, password);
-            ps.setString(3, role);
+            ps.setString(2, role);
 
             try (ResultSet rs = ps.executeQuery()) {
 
                 if (rs.next()) {
-                    return mapRow(rs);
+
+                    User user = mapRow(rs);
+
+                    if (PasswordUtil.verify(password, user.getPassword())) {
+                        return user;
+                    }
+
                 }
 
             }
@@ -38,6 +48,30 @@ public class UserDAO {
         }
 
         return null;
+
+    }
+
+    /**
+     * Mengganti password user dengan yang baru (di-hash otomatis sebelum
+     * disimpan).
+     */
+    public boolean updatePassword(int userId, String newPlainPassword) {
+
+        String sql = "UPDATE users SET password = ? WHERE userId = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, PasswordUtil.hash(newPlainPassword));
+            ps.setInt(2, userId);
+
+            return ps.executeUpdate() > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
 
     }
 

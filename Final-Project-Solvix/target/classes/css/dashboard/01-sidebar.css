@@ -1,0 +1,77 @@
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar {
+    -fx-background-color: linear-gradient(to bottom right, -fx-primary-dark, -fx-primary, -fx-teal);
+    -fx-background-image: url("/images/sidebar_bg.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: left bottom;
+    -fx-background-size: cover;
+}
+
+.logo-title{
+    -fx-font-size:26px;
+    -fx-font-weight:bold;
+    -fx-text-fill:white;
+}
+
+.logo-subtitle{
+    -fx-text-fill:#D7ECDF;
+    -fx-font-size:14px;
+}
+
+.logo-icon{
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.35), 6, 0, 0, 2);
+}
+
+/* =========================
+   MENU BUTTON
+========================= */
+
+.menu-btn{
+    -fx-background-color: transparent;
+    -fx-text-fill:white;
+    -fx-font-size:15px;
+    -fx-font-weight:600;
+
+    -fx-background-radius:12;
+    -fx-padding:12 20;
+    -fx-alignment:CENTER_LEFT;
+}
+
+.menu-btn:hover{
+
+    -fx-background-color:-fx-accent;
+    -fx-text-fill:white;
+}
+
+.menu-btn:selected{
+
+    -fx-background-color:white;
+    -fx-text-fill:-fx-primary-dark;
+}
+
+.menu-icon{
+    -fx-font-size:16px;
+}
+
+/* =========================
+   SIDEBAR TOGGLE BUTTON
+========================= */
+
+.sidebar-toggle-btn{
+    -fx-background-color:rgba(255,255,255,0.10);
+    -fx-text-fill:#D7ECDF;
+    -fx-font-size:12.5px;
+    -fx-font-weight:600;
+    -fx-background-radius:8;
+    -fx-padding:7 12;
+    -fx-alignment:center-left;
+    -fx-cursor:hand;
+}
+
+.sidebar-toggle-btn:hover{
+    -fx-background-color:rgba(255,255,255,0.22);
+    -fx-text-fill:white;
+}
