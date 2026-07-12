@@ -255,7 +255,7 @@ Software
 - Java Development Kit (JDK) 21
 - Apache Maven 3.9+
 - JavaFX SDK 21
-- IntelliJ IDEA / Visual Studio Code
+- Visual Studio Code
 
 ---
 
@@ -281,15 +281,8 @@ Software
 cd Final-Project-Solvix
 mvn clean install
 mvn javafx:run
+
 ```
-
-## Using IntelliJ IDEA
-
-1. Open the project.
-2. Wait until Maven finishes indexing.
-3. Run **App.java**.
-
----
 
 # Login Credentials
 
