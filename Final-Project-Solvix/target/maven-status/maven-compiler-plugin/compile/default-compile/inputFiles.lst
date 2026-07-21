@@ -1,36 +1,36 @@
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\config\DatabaseConnection.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\config\DatabaseInitializer.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\ChangePasswordController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\DashboardController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\DashboardHomeController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\IncomingMaterialController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\LoginController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\MaterialController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\NotificationController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\ProductController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\ProductionController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\ReportController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\SellController.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\ActivityLogDAO.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\IncomingMaterialDAO.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\MaterialDAO.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\NotificationDAO.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\ProductDAO.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\ProductionDAO.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\ProductionMaterialDAO.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\ProductMaterialDAO.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\UserDAO.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\Main.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\ActivityLog.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\IncomingMaterial.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Material.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\MaterialUsageItem.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Notification.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Owner.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Product.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Production.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Staff.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\User.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\util\AlertUtil.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\util\PasswordUtil.java
-C:\Users\lenovo\Downloads\final-project-solvix-main (9.1) (1)\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\util\Session.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\config\DatabaseConnection.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\config\DatabaseInitializer.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\ChangePasswordController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\DashboardController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\DashboardHomeController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\IncomingMaterialController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\LoginController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\MaterialController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\NotificationController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\ProductController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\ProductionController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\ReportController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\controller\SellController.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\ActivityLogDAO.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\IncomingMaterialDAO.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\MaterialDAO.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\NotificationDAO.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\ProductDAO.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\ProductionDAO.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\ProductionMaterialDAO.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\ProductMaterialDAO.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\dao\UserDAO.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\Main.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\ActivityLog.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\IncomingMaterial.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Material.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\MaterialUsageItem.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Notification.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Owner.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Product.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Production.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\Staff.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\model\User.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\util\AlertUtil.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\util\PasswordUtil.java
+C:\Users\lenovo\Documents\final-project-solvix\final-project-solvix\Final-Project-Solvix\src\main\java\com\stockin\util\Session.java
