@@ -12,6 +12,7 @@ public class Production {
     private String note;
 
     private String productName;
+    private String productImage;
 
     public Production() {
     }
@@ -102,6 +103,23 @@ public class Production {
 
     public double getRevenue() {
         return quantitySold * sellingPrice;
+    }
+
+    /**
+     * Sisa stok hasil produksi ini yang belum terjual. Dipakai oleh
+     * halaman Sell (terpisah dari Production) untuk menampilkan berapa
+     * banyak lagi yang masih bisa dijual dari batch ini.
+     */
+    public int getRemainingStock() {
+        return quantityProduced - quantitySold;
+    }
+
+    public String getProductImage() {
+        return productImage;
+    }
+
+    public void setProductImage(String productImage) {
+        this.productImage = productImage;
     }
 
 }

@@ -1,0 +1,27 @@
+/* =========================================================
+   DESIGN TOKENS — LOGIN PAGE
+   Senada dengan palet dashboard (emerald-teal + tangerine)
+   supaya identitas visual konsisten dari layar login sampai
+   ke dalam aplikasi.
+========================================================= */
+
+.root{
+    -fx-font-family: "Segoe UI";
+
+    -fx-primary: #12805A;
+    -fx-primary-dark: #0B4D3B;
+    -fx-primary-light: #2FAE7A;
+    -fx-teal: #14B8A6;
+    -fx-accent: #FF7A2E;
+    -fx-accent-dark: #E85D04;
+}
+
+@font-face {
+    font-family: "Permanent Marker";
+    src: url("/fonts/Permanent_Marker/PermanentMarker-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Caveat";
+    src: url("/fonts/Caveat/Caveat-Bold.ttf");
+}

@@ -1,0 +1,202 @@
+/* =========================
+   TEXTFIELD
+========================= */
+
+.text-field,
+.password-field,
+.combo-box{
+
+    -fx-background-color:white;
+
+    -fx-border-color:-fx-border-input;
+
+    -fx-border-radius:10;
+
+    -fx-background-radius:10;
+
+    -fx-padding:8 12;
+}
+
+.text-field:focused,
+.password-field:focused,
+.combo-box:focused{
+
+    -fx-border-color:-fx-primary;
+
+    -fx-border-width:2;
+}
+
+.text-field-readonly{
+
+    -fx-background-color:#F2F2ED;
+
+    -fx-text-fill:#555555;
+}
+
+.text-area{
+
+    -fx-background-color:white;
+
+    -fx-border-color:-fx-border-input;
+
+    -fx-border-radius:10;
+
+    -fx-background-radius:10;
+}
+
+.text-area .content{
+
+    -fx-background-color:white;
+
+    -fx-background-radius:10;
+
+    -fx-padding:8 12;
+}
+
+.text-area:focused{
+
+    -fx-border-color:-fx-primary;
+
+    -fx-border-width:2;
+}
+
+/* =========================
+   FORM LABEL
+========================= */
+
+.form-label{
+
+    -fx-font-size:13px;
+
+    -fx-text-fill:#555555;
+}
+
+/* Dipakai bersama .form-label pada label field yang wajib diisi (mis.
+   "Product Name *"), supaya tanda bintang wajibnya terlihat jelas
+   berwarna merah tanpa harus mengubah warna seluruh teks label. */
+.form-label-required{
+
+    -fx-text-fill:#d9534f;
+
+}
+
+/* =========================
+   PRODUCT PAGE - PHOTO PICKER
+========================= */
+
+.photo-placeholder{
+
+    -fx-background-color:-fx-surface-alt;
+
+    -fx-border-color:-fx-border-soft;
+
+    -fx-border-style:segments(6,4);
+
+    -fx-border-radius:12;
+
+    -fx-background-radius:12;
+
+    -fx-min-width:86;
+
+    -fx-min-height:86;
+
+    -fx-max-width:86;
+
+    -fx-max-height:86;
+
+    -fx-cursor:hand;
+}
+
+.photo-placeholder:hover{
+
+    -fx-background-color:-fx-primary-bg;
+
+    -fx-border-color:-fx-primary;
+}
+
+.photo-placeholder-icon{
+
+    -fx-font-size:20px;
+
+    -fx-text-fill:#AAAAAA;
+}
+
+.photo-placeholder-text{
+
+    -fx-font-size:11px;
+
+    -fx-text-fill:#999999;
+}
+
+.photo-preview-box{
+
+    -fx-background-color:-fx-surface-alt;
+
+    -fx-border-color:-fx-primary;
+
+    -fx-border-width:2;
+
+    -fx-border-radius:12;
+
+    -fx-background-radius:12;
+
+    -fx-min-width:86;
+
+    -fx-min-height:86;
+
+    -fx-max-width:86;
+
+    -fx-max-height:86;
+}
+
+/* =========================
+   PRODUCT PAGE - FORM SECTION LABEL
+========================= */
+
+.form-section-label{
+
+    -fx-font-size:14px;
+
+    -fx-font-weight:bold;
+
+    -fx-text-fill:#333333;
+}
+
+/* =========================
+   PRODUCT PAGE - ACTIVE STATUS SWITCH
+========================= */
+
+.switch-track-on,
+.switch-track-off{
+
+    -fx-min-width:44;
+
+    -fx-min-height:24;
+
+    -fx-max-width:44;
+
+    -fx-max-height:24;
+
+    -fx-background-radius:20;
+
+    -fx-cursor:hand;
+
+    -fx-alignment:center-left;
+}
+
+.switch-track-on{
+
+    -fx-background-color:-fx-primary;
+}
+
+.switch-track-off{
+
+    -fx-background-color:-fx-track-off;
+}
+
+.switch-knob{
+
+    -fx-fill:white;
+
+    -fx-effect:dropshadow(gaussian, rgba(0,0,0,0.25),3,0,0,1);
+}

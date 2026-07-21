@@ -7,6 +7,7 @@ import com.stockin.config.DatabaseInitializer;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -25,6 +26,8 @@ public class Main extends Application {
         Scene scene = new Scene(loader.load());
 
         stage.setTitle("StockIn");
+
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/images/stockin_icon.png")));
 
         stage.setScene(scene);
 

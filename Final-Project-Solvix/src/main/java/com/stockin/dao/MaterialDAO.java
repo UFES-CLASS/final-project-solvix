@@ -221,6 +221,37 @@ public class MaterialDAO {
 
     }
 
+    /**
+     * Mengecek apakah sudah ada material lain dengan nama yang sama
+     * (tidak peka huruf besar/kecil). excludeMaterialId dipakai saat mode
+     * update, supaya material yang sedang diedit tidak dianggap "duplikat"
+     * terhadap dirinya sendiri.
+     */
+    public boolean existsByName(String materialName, Integer excludeMaterialId) {
+
+        String sql = "SELECT COUNT(*) AS total FROM materials "
+                + "WHERE LOWER(materialName) = LOWER(?) AND materialId <> ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, materialName);
+            ps.setInt(2, excludeMaterialId == null ? -1 : excludeMaterialId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total") > 0;
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return false;
+
+    }
+
     public static boolean isLowStock(Material material) {
         return material.getStock() <= material.getMinimumStock();
     }

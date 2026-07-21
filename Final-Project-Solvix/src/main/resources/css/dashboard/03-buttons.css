@@ -1,0 +1,214 @@
+/* =========================
+   BUTTON (primary / success)
+========================= */
+
+.btn-primary{
+
+    -fx-background-color:linear-gradient(to bottom right, -fx-accent, -fx-accent-dark);
+
+    -fx-text-fill:white;
+
+    -fx-font-weight:bold;
+
+    -fx-font-size:14px;
+
+    -fx-background-radius:10;
+
+    -fx-padding:10 22;
+
+    -fx-effect:dropshadow(gaussian, rgba(255,122,46,0.35), 12, 0, 0, 3);
+}
+
+.btn-primary:hover{
+
+    -fx-background-color:-fx-accent-dark;
+
+    -fx-effect:dropshadow(gaussian, rgba(232,93,4,0.45), 14, 0, 0, 4);
+}
+
+.btn-success{
+
+    -fx-background-color:linear-gradient(to bottom right, -fx-primary, -fx-primary-dark);
+
+    -fx-text-fill:white;
+
+    -fx-font-weight:bold;
+
+    -fx-background-radius:10;
+
+    -fx-effect:dropshadow(gaussian, rgba(18,128,90,0.30), 10, 0, 0, 3);
+}
+
+.btn-success:hover{
+
+    -fx-background-color:-fx-primary-dark;
+}
+
+/* =========================
+   BUTTON (danger / neutral - Incoming Material actions)
+========================= */
+
+.btn-danger{
+
+    -fx-background-color:-fx-danger;
+
+    -fx-text-fill:white;
+
+    -fx-font-weight:bold;
+
+    -fx-font-size:14px;
+
+    -fx-background-radius:10;
+
+    -fx-padding:10 22;
+}
+
+.btn-danger:hover{
+
+    -fx-background-color:-fx-danger-dark;
+}
+
+.btn-neutral{
+
+    -fx-background-color:-fx-neutral;
+
+    -fx-text-fill:white;
+
+    -fx-font-weight:bold;
+
+    -fx-font-size:14px;
+
+    -fx-background-radius:10;
+
+    -fx-padding:10 22;
+}
+
+.btn-neutral:hover{
+
+    -fx-background-color:-fx-neutral-dark;
+}
+
+/* =========================
+   BUTTON (outline / table actions)
+========================= */
+
+.btn-outline{
+
+    -fx-background-color:white;
+
+    -fx-text-fill:#444444;
+
+    -fx-font-weight:bold;
+
+    -fx-font-size:14px;
+
+    -fx-background-radius:10;
+
+    -fx-border-radius:10;
+
+    -fx-border-color:-fx-border-soft;
+
+    -fx-padding:10 22;
+}
+
+.btn-outline:hover{
+
+    -fx-background-color:-fx-surface-hover;
+}
+
+.table-action-btn{
+
+    -fx-background-color:white;
+
+    -fx-text-fill:#444444;
+
+    -fx-font-size:12px;
+
+    -fx-background-radius:8;
+
+    -fx-border-radius:8;
+
+    -fx-border-color:-fx-border-soft;
+
+    -fx-padding:5 12;
+
+    -fx-cursor:hand;
+}
+
+.table-action-btn:hover{
+
+    -fx-background-color:-fx-surface-hover;
+}
+
+.table-action-btn-delete{
+
+    -fx-text-fill:-fx-danger;
+
+    -fx-border-color:-fx-danger-border;
+}
+
+.table-action-btn-delete:hover{
+
+    -fx-background-color:-fx-danger-bg;
+}
+
+.table-action-icon-btn{
+
+    -fx-background-color:transparent;
+
+    -fx-font-size:14px;
+
+    -fx-padding:4 6;
+
+    -fx-background-radius:6;
+
+    -fx-cursor:hand;
+}
+
+.table-action-icon-btn:hover{
+
+    -fx-background-color:-fx-primary-bg;
+}
+
+.table-action-icon-edit{
+
+    -fx-text-fill:-fx-primary;
+}
+
+.table-action-icon-delete{
+
+    -fx-text-fill:-fx-danger;
+}
+
+/* =========================
+   PAGINATION
+========================= */
+
+.pagination-btn{
+
+    -fx-background-color:white;
+
+    -fx-text-fill:#555555;
+
+    -fx-font-size:12px;
+
+    -fx-background-radius:8;
+
+    -fx-border-radius:8;
+
+    -fx-border-color:-fx-border-soft;
+
+    -fx-padding:6 12;
+
+    -fx-cursor:hand;
+}
+
+.pagination-btn:hover{
+
+    -fx-background-color:-fx-surface-hover;
+}
+
+.pagination-btn:disabled{
+
+    -fx-opacity:0.4;
+}

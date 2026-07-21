@@ -1,57 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
 
-<BorderPane xmlns="http://javafx.com/javafx/21"
+<ScrollPane fitToWidth="true"
+            style="-fx-background-color:transparent; -fx-background: transparent;"
+            xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.stockin.controller.NotificationController">
 
-    <top>
+    <content>
 
-        <VBox spacing="10">
+        <VBox spacing="20" style="-fx-background-color:transparent;">
 
-            <Label text="Notification"
-                   style="-fx-font-size:22px;
-                          -fx-font-weight:bold;"/>
+            <padding>
+                <Insets top="0" right="4" bottom="20" left="0"/>
+            </padding>
 
-            <Label fx:id="lblUnreadCount" text="0 unread notifications"
-                   style="-fx-text-fill:#DC2626; -fx-font-weight:bold;"/>
+            <!-- ================= HEADER ================= -->
+            <HBox spacing="14" alignment="CENTER_LEFT">
+                <Label text="Notifications" styleClass="page-title"/>
+                <Label fx:id="lblUnreadBadge" text="0 Unread Notifications"
+                       styleClass="notification-page-badge"/>
+            </HBox>
 
-            <HBox spacing="10">
+            <!-- ================= TOOLBAR ================= -->
+            <HBox spacing="12" alignment="CENTER_LEFT" styleClass="card">
 
-                <Button text="Mark as Read" onAction="#markAsRead"/>
-                <Button text="Mark All as Read" onAction="#markAllAsRead"/>
-                <Button text="Delete" onAction="#deleteNotification"/>
-                <Button text="Refresh" onAction="#refresh"/>
+                <CheckBox fx:id="chkSelectAll" text="Select All" onAction="#toggleSelectAll"/>
+
+                <Button text="&#128065;  Mark as Read (Ikon Mata)" onAction="#markAsRead" styleClass="btn-outline"/>
+
+                <Button text="&#128465;  Delete" onAction="#deleteNotification" styleClass="btn-outline"/>
+
+                <Button text="&#8635;  Refresh" onAction="#refresh" styleClass="btn-outline"/>
+
+                <Region HBox.hgrow="ALWAYS"/>
+
+                <ComboBox fx:id="cmbFilterMaterial" promptText="Filter by Material"
+                          prefWidth="180" styleClass="combo-box" onAction="#applyFiltersAction"/>
+
+                <ComboBox fx:id="cmbFilterStatus" promptText="Filter by Status"
+                          prefWidth="160" styleClass="combo-box" onAction="#applyFiltersAction"/>
 
             </HBox>
 
+            <!-- ================= NOTIFICATION LIST ================= -->
+            <VBox fx:id="notificationContainer" spacing="14"/>
+
+            <!-- ================= ADD CHANNEL PLACEHOLDER ================= -->
+            <VBox alignment="CENTER" prefHeight="220" VBox.vgrow="ALWAYS"
+                  styleClass="notification-channel-placeholder">
+
+                <Button text="+  Add New Notification Channel" onAction="#addNotificationChannel"
+                        styleClass="btn-outline"/>
+
+            </VBox>
+
         </VBox>
 
-    </top>
+    </content>
 
-    <center>
-
-        <TableView fx:id="tableNotification">
-
-            <columns>
-
-                <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
-                <TableColumn fx:id="colMaterial" text="Material" prefWidth="150"/>
-                <TableColumn fx:id="colMessage" text="Message" prefWidth="320"/>
-                <TableColumn fx:id="colCreatedAt" text="Created At" prefWidth="150"/>
-                <TableColumn fx:id="colStatus" text="Status" prefWidth="100"/>
-
-            </columns>
-
-        </TableView>
-
-    </center>
-
-    <padding>
-        <Insets top="20" right="20" left="20" bottom="20"/>
-    </padding>
-
-</BorderPane>
+</ScrollPane>

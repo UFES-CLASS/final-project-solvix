@@ -2,22 +2,29 @@ package com.stockin.controller;
 
 import java.time.LocalDate;
 
+import com.stockin.dao.ActivityLogDAO;
 import com.stockin.dao.IncomingMaterialDAO;
 import com.stockin.dao.MaterialDAO;
 import com.stockin.dao.NotificationDAO;
 import com.stockin.model.IncomingMaterial;
 import com.stockin.model.Material;
 import com.stockin.util.AlertUtil;
+import com.stockin.util.Session;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 
 public class IncomingMaterialController {
 
@@ -31,6 +38,9 @@ public class IncomingMaterialController {
     private TextField txtQuantity;
 
     @FXML
+    private TextField txtUnit;
+
+    @FXML
     private TextField txtUnitPrice;
 
     @FXML
@@ -40,7 +50,7 @@ public class IncomingMaterialController {
     private TextField txtSupplier;
 
     @FXML
-    private TextField txtNote;
+    private TextArea txtNote;
 
     @FXML
     private TableView<IncomingMaterial> tableIncoming;
@@ -72,9 +82,13 @@ public class IncomingMaterialController {
     @FXML
     private TableColumn<IncomingMaterial, String> colNote;
 
+    @FXML
+    private TableColumn<IncomingMaterial, Void> colActions;
+
     private final IncomingMaterialDAO incomingDAO = new IncomingMaterialDAO();
     private final MaterialDAO materialDAO = new MaterialDAO();
     private final NotificationDAO notificationDAO = new NotificationDAO();
+    private final ActivityLogDAO activityLogDAO = new ActivityLogDAO();
 
     private final ObservableList<IncomingMaterial> incomingList = FXCollections.observableArrayList();
 
@@ -93,12 +107,18 @@ public class IncomingMaterialController {
         colSupplier.setCellValueFactory(new PropertyValueFactory<>("supplier"));
         colNote.setCellValueFactory(new PropertyValueFactory<>("note"));
 
+        setupActionsColumn();
+
         tableIncoming.setItems(incomingList);
 
         cmbMaterial.setItems(FXCollections.observableArrayList(materialDAO.getAllMaterials()));
 
+        cmbMaterial.valueProperty().addListener((obs, oldVal, newVal) -> {
+            txtUnit.setText(newVal != null ? newVal.getUnit() : "");
+        });
+
         dateIncoming.setValue(LocalDate.now());
-        
+
         txtQuantity.textProperty().addListener((obs, oldVal, newVal) -> recalculateTotal());
         txtUnitPrice.textProperty().addListener((obs, oldVal, newVal) -> recalculateTotal());
 
@@ -132,6 +152,48 @@ public class IncomingMaterialController {
 
     }
 
+    /**
+     * Kolom Actions berisi ikon Edit dan Delete per baris, konsisten dengan
+     * tabel Material supaya user bisa langsung mengedit / menghapus baris
+     * tanpa harus klik baris dulu baru tekan tombol global di atas.
+     */
+    private void setupActionsColumn() {
+
+        colActions.setCellFactory(col -> new TableCell<IncomingMaterial, Void>() {
+
+            private final Button btnEdit = new Button("\u270E");
+            private final Button btnDelete = new Button("\uD83D\uDDD1");
+            private final HBox box = new HBox(6, btnEdit, btnDelete);
+
+            {
+                btnEdit.getStyleClass().addAll("table-action-icon-btn", "table-action-icon-edit");
+                btnDelete.getStyleClass().addAll("table-action-icon-btn", "table-action-icon-delete");
+                box.setAlignment(Pos.CENTER);
+
+                btnEdit.setOnAction(e -> {
+                    IncomingMaterial incoming = getTableView().getItems().get(getIndex());
+                    selectedIncoming = incoming;
+                    fillForm(incoming);
+                    tableIncoming.getSelectionModel().select(incoming);
+                });
+
+                btnDelete.setOnAction(e -> {
+                    IncomingMaterial incoming = getTableView().getItems().get(getIndex());
+                    selectedIncoming = incoming;
+                    deleteIncoming();
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : box);
+            }
+
+        });
+
+    }
+
     private void fillForm(IncomingMaterial incoming) {
 
         for (Material material : cmbMaterial.getItems()) {
@@ -143,6 +205,7 @@ public class IncomingMaterialController {
 
         dateIncoming.setValue(LocalDate.parse(incoming.getIncomingDate()));
         txtQuantity.setText(String.valueOf(incoming.getQuantity()));
+        txtUnit.setText(incoming.getUnit());
         txtUnitPrice.setText(String.valueOf(incoming.getUnitPrice()));
         txtTotalPrice.setText(String.valueOf(incoming.getTotalPrice()));
         txtSupplier.setText(incoming.getSupplier());
@@ -176,6 +239,11 @@ public class IncomingMaterialController {
             if (success) {
                 refreshMaterialCombo();
                 loadTable();
+
+                activityLogDAO.log(Session.getCurrentUserLabel(),
+                        "Received " + incoming.getQuantity() + material.getUnit() + " " + material.getMaterialName(),
+                        "INCOMING");
+
                 clearForm();
                 AlertUtil.info("Success", "Incoming material saved successfully. Material stock updated automatically.");
             } else {
@@ -267,6 +335,7 @@ public class IncomingMaterialController {
         cmbMaterial.setValue(null);
         dateIncoming.setValue(LocalDate.now());
         txtQuantity.clear();
+        txtUnit.clear();
         txtUnitPrice.clear();
         txtTotalPrice.clear();
         txtSupplier.clear();

@@ -215,6 +215,109 @@ public class IncomingMaterialDAO {
 
     }
 
+    /**
+     * Harga satuan terbaru (paling akhir dicatat) untuk sebuah material.
+     * Dipakai Dashboard untuk menghitung "Stock Asset Value".
+     * Mengembalikan 0 kalau material tersebut belum pernah punya
+     * catatan bahan masuk sama sekali.
+     */
+    public double getLatestUnitPrice(int materialId) {
+
+        String sql = "SELECT unitPrice FROM incoming_materials WHERE materialId = ? "
+                + "ORDER BY incomingDate DESC, incomingId DESC LIMIT 1";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setInt(1, materialId);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("unitPrice");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
+    /**
+     * Total pengeluaran (totalPrice) untuk seluruh pembelian bahan masuk
+     * dalam rentang tanggal tertentu (inklusif). Dipakai oleh Financial
+     * Report untuk menampilkan Expense di samping Revenue, supaya laporan
+     * keuangan tidak hanya menampilkan pemasukan saja.
+     */
+    public double getExpenseBetween(String startDate, String endDate) {
+
+        StringBuilder sql = new StringBuilder(
+                "SELECT COALESCE(SUM(totalPrice),0) AS total FROM incoming_materials WHERE 1=1 ");
+
+        if (startDate != null) {
+            sql.append("AND incomingDate >= ? ");
+        }
+
+        if (endDate != null) {
+            sql.append("AND incomingDate <= ? ");
+        }
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql.toString())) {
+
+            int idx = 1;
+
+            if (startDate != null) {
+                ps.setString(idx++, startDate);
+            }
+
+            if (endDate != null) {
+                ps.setString(idx++, endDate);
+            }
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("total");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
+    /**
+     * Total kuantitas semua bahan masuk pada satu tanggal tertentu.
+     * Dipakai untuk menyusun grafik "Material Incoming vs Outgoing".
+     */
+    public int getTotalQuantityByDate(String dateIso) {
+
+        String sql = "SELECT COALESCE(SUM(quantity),0) AS total FROM incoming_materials WHERE incomingDate = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, dateIso);
+
+            try (ResultSet rs = ps.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt("total");
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
     private IncomingMaterial mapRow(ResultSet rs) throws Exception {
 
         IncomingMaterial incoming = new IncomingMaterial();

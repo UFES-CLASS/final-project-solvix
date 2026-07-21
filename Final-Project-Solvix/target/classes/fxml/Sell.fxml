@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.VBox?>
+
+<ScrollPane fitToWidth="true"
+            style="-fx-background-color:transparent; -fx-background: transparent;"
+            xmlns="http://javafx.com/javafx/21"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.stockin.controller.SellController">
+
+    <content>
+
+        <VBox spacing="20" style="-fx-background-color:transparent;">
+
+            <padding>
+                <Insets top="0" right="4" bottom="20" left="0"/>
+            </padding>
+
+            <VBox spacing="2">
+                <Label text="Sell" styleClass="page-title"/>
+                <Label text="Record how many units were sold each day, separate from Production."
+                       styleClass="report-subtitle"/>
+            </VBox>
+
+            <!-- ================= RECORD SALE FORM ================= -->
+            <VBox spacing="16" styleClass="card">
+
+                <Label text="Record a Sale" styleClass="panel-title"/>
+                <Label text="Pick the product/batch from the dropdown (or click a row in the table below), then enter how many units were sold."
+                       styleClass="notification-sub-label" wrapText="true"/>
+
+                <HBox spacing="12" alignment="BOTTOM_LEFT">
+
+                    <VBox spacing="6" prefWidth="280" HBox.hgrow="ALWAYS" maxWidth="Infinity">
+                        <Label text="Product *" styleClass="form-label, form-label-required"/>
+                        <ComboBox fx:id="cmbProduct" promptText="Select a production batch to sell from"
+                                  maxWidth="Infinity" styleClass="combo-box"/>
+                    </VBox>
+
+                    <VBox spacing="6" prefWidth="160">
+                        <Label text="Remaining Stock" styleClass="form-label"/>
+                        <TextField fx:id="txtRemainingStock" editable="false" promptText="0" styleClass="text-field"/>
+                    </VBox>
+
+                    <VBox spacing="6" prefWidth="160">
+                        <Label text="Quantity Sold" styleClass="form-label"/>
+                        <TextField fx:id="txtQuantitySold" promptText="0" styleClass="text-field"/>
+                    </VBox>
+
+                    <Button text="&#10004;  Record Sale" onAction="#recordSale" styleClass="btn-success"/>
+
+                    <Button text="&#8634;  Clear Selection" onAction="#clearSelection" styleClass="btn-outline"/>
+
+                </HBox>
+
+            </VBox>
+
+            <!-- ================= PRODUCTION BATCHES TABLE ================= -->
+            <VBox spacing="14" styleClass="card">
+
+                <HBox spacing="12" alignment="CENTER_LEFT">
+                    <Label text="Production Batches" styleClass="panel-title"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <TextField fx:id="txtSearch" promptText="&#128269;  Search product..." styleClass="text-field" prefWidth="220"/>
+                </HBox>
+
+                <TableView fx:id="tableSell" prefHeight="420" minHeight="260" VBox.vgrow="ALWAYS"
+                           styleClass="table-view, table-view-light">
+
+                    <columns>
+
+                        <TableColumn fx:id="colId" text="ID" prefWidth="50"/>
+                        <TableColumn fx:id="colProduct" text="Product" prefWidth="160"/>
+                        <TableColumn fx:id="colProdDate" text="Production Date" prefWidth="120"/>
+                        <TableColumn fx:id="colExpDate" text="Expiry Date" prefWidth="110"/>
+                        <TableColumn fx:id="colProduced" text="Produced" prefWidth="90"/>
+                        <TableColumn fx:id="colSold" text="Sold" prefWidth="80"/>
+                        <TableColumn fx:id="colRemaining" text="Remaining" prefWidth="100"/>
+                        <TableColumn fx:id="colPrice" text="Selling Price" prefWidth="110"/>
+
+                    </columns>
+
+                </TableView>
+
+            </VBox>
+
+        </VBox>
+
+    </content>
+
+</ScrollPane>

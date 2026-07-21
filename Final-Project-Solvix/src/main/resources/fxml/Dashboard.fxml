@@ -2,6 +2,8 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.*?>
 
 <BorderPane xmlns="http://javafx.com/javafx/21"
@@ -9,56 +11,115 @@
             fx:controller="com.stockin.controller.DashboardController"
             stylesheets="@../css/style.css">
 
-    <!-- SIDEBAR -->
+    <!-- ================= SIDEBAR =================
+         Ditaruh sebagai "left" dari BorderPane paling luar (yang tidak
+         punya region "top" sendiri), supaya sidebar mentok dari paling
+         atas sampai paling bawah jendela, bukan cuma di bawah topbar. -->
     <left>
 
-        <VBox spacing="8" prefWidth="230" styleClass="sidebar">
+        <VBox fx:id="sidebarBox" spacing="8" prefWidth="230" styleClass="sidebar">
 
             <padding>
-                <Insets top="30" right="15" bottom="30" left="15"/>
+                <Insets top="24" right="15" bottom="30" left="15"/>
             </padding>
 
-            <Label text="STOCKIN" styleClass="logo-title"/>
-            <Label text="Inventory Management" styleClass="logo-subtitle"/>
+            <!-- LOGO -->
+            <HBox spacing="12" alignment="CENTER_LEFT">
+                <ImageView fitWidth="42" fitHeight="42" preserveRatio="true" styleClass="logo-icon">
+                    <image>
+                        <Image url="@../images/stockin_icon.png"/>
+                    </image>
+                </ImageView>
+                <VBox spacing="0">
+                    <Label text="STOCKIN" styleClass="logo-title"/>
+                    <Label text="Inventory Management" styleClass="logo-subtitle"/>
+                </VBox>
+            </HBox>
 
-            <Region prefHeight="30"/>
+            <!-- TOMBOL TUTUP SIDEBAR (baris sendiri, biar judul di atas gak kepotong) -->
+            <Button fx:id="btnCollapseSidebar" text="&#10094;" onAction="#toggleSidebar"
+                    maxWidth="Infinity" styleClass="sidebar-toggle-btn"/>
 
-            <Button fx:id="btnDashboard" text="Dashboard" onAction="#openDashboard" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
-            <Button fx:id="btnMaterial" text="Material" onAction="#openMaterial" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
-            <Button fx:id="btnIncoming" text="Incoming Material" onAction="#openIncoming" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
-            <Button fx:id="btnProduct" text="Product" onAction="#openProduct" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
-            <Button fx:id="btnProduction" text="Production" onAction="#openProduction" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
-            <Button fx:id="btnNotification" text="Notification" onAction="#openNotification" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
-            <Button fx:id="btnReport" text="Financial Report" onAction="#openReport" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn"/>
+            <Region prefHeight="16"/>
+
+            <Button fx:id="btnDashboard" text="Dashboard" onAction="#openDashboard" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn" graphicTextGap="12">
+                <graphic><Label text="&#127968;" styleClass="menu-icon"/></graphic>
+            </Button>
+            <Button fx:id="btnMaterial" text="Material" onAction="#openMaterial" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn" graphicTextGap="12">
+                <graphic><Label text="&#128230;" styleClass="menu-icon"/></graphic>
+            </Button>
+            <Button fx:id="btnIncoming" text="Incoming Material" onAction="#openIncoming" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn" graphicTextGap="12">
+                <graphic><Label text="&#128229;" styleClass="menu-icon"/></graphic>
+            </Button>
+            <Button fx:id="btnProduct" text="Product" onAction="#openProduct" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn" graphicTextGap="12">
+                <graphic><Label text="&#127843;" styleClass="menu-icon"/></graphic>
+            </Button>
+            <Button fx:id="btnProduction" text="Production" onAction="#openProduction" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn" graphicTextGap="12">
+                <graphic><Label text="&#127859;" styleClass="menu-icon"/></graphic>
+            </Button>
+            <Button fx:id="btnSell" text="Sell" onAction="#openSell" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn" graphicTextGap="12">
+                <graphic><Label text="&#128181;" styleClass="menu-icon"/></graphic>
+            </Button>
+            <Button fx:id="btnReport" text="Financial Report" onAction="#openReport" prefWidth="200" maxWidth="Infinity" styleClass="menu-btn" graphicTextGap="12">
+                <graphic><Label text="&#128202;" styleClass="menu-icon"/></graphic>
+            </Button>
 
         </VBox>
 
     </left>
 
-    <!-- TOP BAR -->
-    <top>
-
-        <HBox spacing="15" alignment="CENTER_LEFT" styleClass="topbar">
-
-            <padding>
-                <Insets top="16" right="25" bottom="16" left="25"/>
-            </padding>
-
-            <Pane HBox.hgrow="ALWAYS"/>
-
-            <Label fx:id="lblUser" text="Owner" styleClass="username"/>
-
-            <Button text="Logout" onAction="#logout" styleClass="btn-primary"/>
-
-        </HBox>
-
-    </top>
-
-    <!-- CONTENT: hanya satu halaman yang tampil pada satu waktu -->
+    <!-- ================= TOPBAR + CONTENT =================
+         Dibungkus BorderPane terpisah supaya topbar cuma melebar di atas
+         area konten, tidak menutupi/menindih sidebar di sebelah kiri. -->
     <center>
 
-        <StackPane fx:id="contentArea"
-                   style="-fx-padding:20;"/>
+        <BorderPane>
+
+            <top>
+
+                <HBox spacing="18" alignment="CENTER_LEFT" styleClass="topbar">
+
+                    <padding>
+                        <Insets top="16" right="25" bottom="16" left="25"/>
+                    </padding>
+
+                    <!-- Muncul cuma saat sidebar ditutup, buat membuka lagi -->
+                    <Button fx:id="btnOpenSidebar" text="&#9776;" onAction="#toggleSidebar"
+                            styleClass="icon-btn" visible="false" managed="false"/>
+
+                    <Pane HBox.hgrow="ALWAYS"/>
+
+                    <!-- NOTIFICATION BELL -->
+                    <StackPane>
+                        <Button fx:id="btnNotificationBell" text="&#128276;" onAction="#openNotification" styleClass="icon-btn"/>
+                        <Label fx:id="lblNotificationBadge" text="0" styleClass="notif-badge"
+                               StackPane.alignment="TOP_RIGHT" translateX="6" translateY="-4" visible="false" managed="false"/>
+                    </StackPane>
+
+                    <!-- USER MENU: avatar + username + dropdown (Change Password, Logout) -->
+                    <MenuButton fx:id="menuUser" text="Owner" styleClass="user-menu">
+                        <graphic>
+                            <Label text="&#128100;" styleClass="user-avatar"/>
+                        </graphic>
+                        <items>
+                            <MenuItem fx:id="menuChangePassword" text="Change Password" onAction="#openChangePassword"/>
+                            <MenuItem fx:id="menuLogout" text="Logout" onAction="#logout" style="-fx-text-fill:#E53935;"/>
+                        </items>
+                    </MenuButton>
+
+                </HBox>
+
+            </top>
+
+            <!-- CONTENT: hanya satu halaman yang tampil pada satu waktu -->
+            <center>
+
+                <StackPane fx:id="contentArea"
+                           style="-fx-padding:20;"/>
+
+            </center>
+
+        </BorderPane>
 
     </center>
 
